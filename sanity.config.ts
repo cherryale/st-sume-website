@@ -3,26 +3,19 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import { visionTool } from '@sanity/vision'
-import {
-  apiVersion,
-  dataset,
-  DRAFT_MODE_ROUTE,
-  projectId,
-} from 'lib/sanity.api'
-import { locate } from 'plugins/locate'
-import { previewDocumentNode } from 'plugins/previewPane'
+import { apiVersion, dataset, DRAFT_MODE_ROUTE, projectId } from 'lib/api'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
-import { presentationTool } from 'sanity/presentation'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import authorType from 'schemas/author'
-import postType from 'schemas/post'
-import settingsType from 'schemas/settings'
+import blog from 'schemas/post'
+import page from 'schemas/page'
+import settings from 'schemas/singletons/settings'
+import menu from './schemas/singletons/menu'
+import homepage from './schemas/singletons/homepage'
+import work from './schemas/work'
 
-const title =
-  process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Blog with Sanity.io'
+const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Jé St Sume'
 
 export default defineConfig({
   basePath: '/studio',
@@ -31,29 +24,29 @@ export default defineConfig({
   title,
   schema: {
     // If you want more content types, you can add them to this array
-    types: [authorType, postType, settingsType],
+    types: [page, work, blog, settings, homepage, menu]
   },
   plugins: [
     structureTool({
-      structure: settingsStructure(settingsType),
+      structure: settingsStructure(settings)
       // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
-      defaultDocumentNode: previewDocumentNode(),
+      // defaultDocumentNode: previewDocumentNode(),
     }),
-    presentationTool({
-      locate,
-      previewUrl: {
-        previewMode: {
-          enable: DRAFT_MODE_ROUTE,
-        },
-      },
-    }),
+    // presentationTool({
+    //   locate,
+    //   previewUrl: {
+    //     previewMode: {
+    //       enable: DRAFT_MODE_ROUTE,
+    //     },
+    //   },
+    // }),
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
-    settingsPlugin({ type: settingsType.name }),
+    settingsPlugin({ type: settings.name }),
     // Add an image asset source for Unsplash
-    unsplashImageAsset(),
+    unsplashImageAsset()
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
-    process.env.NODE_ENV !== 'production' &&
-      visionTool({ defaultApiVersion: apiVersion }),
-  ],
+    // process.env.NODE_ENV !== 'production' &&
+    //   visionTool({ defaultApiVersion: apiVersion })
+  ]
 })

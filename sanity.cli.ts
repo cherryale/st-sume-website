@@ -1,13 +1,26 @@
-import { loadEnvConfig } from '@next/env'
 import { defineCliConfig } from 'sanity/cli'
 
-const dev = process.env.NODE_ENV !== 'production'
-loadEnvConfig(__dirname, dev, { info: () => null, error: console.error })
-
-// @TODO report top-level await bug
-// Using a dynamic import here as `loadEnvConfig` needs to run before this file is loaded
-// const { projectId, dataset } = await import('lib/sanity.api')
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
+const studio = process.env.SANITY_STUDIO_HOST
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 
-export default defineCliConfig({ api: { projectId, dataset } })
+export default defineCliConfig({
+  api: { projectId, dataset },
+  studioHost: studio,
+  deployment: {
+    appId: ''
+  },
+  vite: {
+    define: {
+      'process.env.NEXT_PUBLIC_SANITY_PROJECT_ID': JSON.stringify(projectId),
+      'process.env.NEXT_PUBLIC_SANITY_DATASET': JSON.stringify(dataset),
+      'process.env.NEXT_PUBLIC_SITE_URL': JSON.stringify(siteUrl)
+    },
+    resolve: {
+      alias: {
+        '@': __dirname
+      }
+    }
+  }
+})

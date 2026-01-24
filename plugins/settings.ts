@@ -25,36 +25,59 @@ export const settingsPlugin = definePlugin<{ type: string }>(({ type }) => {
         }
 
         return prev
-      },
-    },
+      }
+    }
   }
 })
 
 // The StructureResolver is how we're changing the DeskTool structure to linking to a single "Settings" document, instead of rendering "settings" in a list
 // like how "Post" and "Author" is handled.
 export const settingsStructure = (
-  typeDef: DocumentDefinition,
+  typeDef: DocumentDefinition
 ): StructureResolver => {
   return (S) => {
     // The `Settings` root list item
     const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
       S.listItem()
-        .title(typeDef.title)
+        .title(typeDef?.title || 'Settings')
         .icon(typeDef.icon)
         .child(
           S.editor()
             .id(typeDef.name)
             .schemaType(typeDef.name)
-            .documentId(typeDef.name),
+            .documentId(typeDef.name)
         )
+
+    // Homepage singleton
+    const homepageListItem = S.listItem()
+      .title('Homepage')
+      .icon(() => '🏠')
+      .child(
+        S.editor().id('homepage').schemaType('homepage').documentId('homepage')
+      )
+
+    // Menu singleton
+    const menuListItem = S.listItem()
+      .title('Menu')
+      .icon(() => '⚙️')
+      .child(S.editor().id('menu').schemaType('menu').documentId('menu'))
 
     // The default root list items (except custom ones)
     const defaultListItems = S.documentTypeListItems().filter(
-      (listItem) => listItem.getId() !== typeDef.name,
+      (listItem) =>
+        listItem.getId() !== typeDef.name &&
+        listItem.getId() !== 'homepage' &&
+        listItem.getId() !== 'menu'
     )
 
     return S.list()
       .title('Content')
-      .items([settingsListItem, S.divider(), ...defaultListItems])
+      .items([
+        settingsListItem,
+        homepageListItem,
+        menuListItem,
+        S.divider(),
+        ...defaultListItems
+      ])
   }
 }

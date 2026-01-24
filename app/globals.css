@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-family-base: 'Public Sans', monospace;
+  --font-family-heading: 'Source Serif 4', monospace;
+
+  --color-black-500: #212121;
+  --color-white-500: #fff;
+  --color-grey-100: #efefef;
+  --color-grey-300: #7a7a7a;
+  --color-grey-600: #4d4d4d;
+
+  /* Accent */
+  --color-blue-500: #005f9e;
+}
+
+@layer base {
+  html {
+    min-height: 100%;
+    overflow-x: clip;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-white);
+    box-sizing: border-box;
+    color: var(--color-gray-600);
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+    min-height: 100%;
+    overflow: hidden;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  a {
+    color: var(--color-black);
+    text-decoration: underline;
+    transition: 0.2s color ease-in-out;
+
+    &:focus,
+    &:hover {
+      color: var(--color-blue-500);
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-black);
+    line-height: 1.15;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(3.5rem, 3rem + 2vw, 4rem);
+  }
+
+  h2 {
+    font-size: clamp(3rem, 2.75rem + 1.5vw, 3.5rem);
+  }
+
+  h3 {
+    font-size: clamp(2rem, 1.75rem + 1.25vw, 2.5rem);
+  }
+
+  h4 {
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  }
+
+  h5,
+  h6 {
+    font-size: 1.25rem;
+  }
+
+  h6 {
+    text-transform: uppercase;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-family-heading);
+  }
+
+  .eyebrow {
+    @apply text-sm uppercase tracking-wider font-medium;
+  }
+}

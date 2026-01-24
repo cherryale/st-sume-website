@@ -8,9 +8,6 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
 export default defineCliConfig({
   api: { projectId, dataset },
   studioHost: studio,
-  deployment: {
-    appId: ''
-  },
   vite: {
     define: {
       'process.env.NEXT_PUBLIC_SANITY_PROJECT_ID': JSON.stringify(projectId),

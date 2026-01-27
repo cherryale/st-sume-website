@@ -57,7 +57,6 @@ export const Header = ({
         div.style.position = 'absolute'
         div.style.transform = 'none'
         div.style.transition = 'none'
-        div.style.boxShadow = 'none'
         setIsSticky(false)
       }
       // set isSticky to true if the user has scrolled more than 80px
@@ -73,7 +72,6 @@ export const Header = ({
 
           setTimeout(() => {
             div.style.transform = 'translateY(0)'
-            div.style.boxShadow = '0 0 40px rgba(0, 0, 0, 0.1)'
           }, 300)
 
           setIsSticky(true)

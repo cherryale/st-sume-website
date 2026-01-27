@@ -1,10 +1,6 @@
 import { notFound } from 'next/navigation'
-
-import { getBlogPostBySlug } from '../../../lib/queries'
-import { Section } from '../../../components/section/section'
-import Image from 'next/image'
-import { urlForImage } from '../../../lib/resolvers'
-import BlogPost from '../../../components/templates/blog-post'
+import { getBlogPostBySlug } from '../../../../lib/queries'
+import BlogPost from '../../../../components/templates/blog-post'
 
 interface PageProps {
   params: Promise<{ slug: string }>

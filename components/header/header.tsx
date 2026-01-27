@@ -5,6 +5,7 @@ import { DesktopMenu } from '../desktop-menu/desktop-menu'
 import { Lines } from '../lines/lines'
 import { useEffect, useRef, useState } from 'react'
 import { debounce } from 'lodash'
+import { Menu } from '../desktop-menu/menu'
 
 export const Header = ({
   items,
@@ -12,6 +13,7 @@ export const Header = ({
 }: NonNullable<MenuQueryResult> & {
   resume: string
 }) => {
+  const [isMobile, setIsMobile] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
   const [isSticky, setIsSticky] = useState(false)
@@ -20,7 +22,7 @@ export const Header = ({
   const [hasWindow, setHasWindow] = useState(false)
   const checkScreenSize = () => {
     const isSmallScreen = window.innerWidth < 900
-    // setIsMobile(isSmallScreen)
+    setIsMobile(isSmallScreen)
 
     if (!isSmallScreen) {
       setIsMobileMenuOpen(false)
@@ -97,7 +99,24 @@ export const Header = ({
           <span className="text-black-500">Sume</span>
         </Link>
       </div>
-      {items && resume && <DesktopMenu items={items} resume={resume} />}
+      {items && resume && (
+        <Menu
+          items={items}
+          resume={resume}
+          isMobile={isMobile}
+          isMobileMenuOpen={isMobileMenuOpen}
+          onMobileMenuToggle={() => {
+            setIsMobileMenuOpen((state: boolean) => {
+              const newState = !state
+              document.documentElement.classList.toggle(
+                'overflow-hidden',
+                newState
+              )
+              return newState
+            })
+          }}
+        />
+      )}
     </header>
   )
 }

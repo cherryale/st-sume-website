@@ -1,31 +1,10 @@
-import { Lines } from 'components/lines/lines'
 import './globals.css'
-import { getMenu, getSiteSettings } from '../lib/queries'
-import { Header } from '../components/header/header'
-import AppProvider from '../contexts/AppProvider'
-import { Footer } from '../components/footer/footer'
-import Link from 'next/link'
-import { Credit } from '../components/credit/credit'
 
-export default async function RootLayout({
+export default function RootLayout({
   children
 }: {
   children: React.ReactNode
 }) {
-  // const isDraftMode = draftMode().isEnabled
-  const settings = await getSiteSettings()
-  const menu = await getMenu()
-  // const { isEnabled: isDraftMode } = await draftMode()
-
-  if (!settings) {
-    throw new Error('Settings cannot be empty.')
-  }
-
-  if (!menu) {
-    throw new Error('Menu cannot be empty.')
-  }
-
-  const resume = settings?.info?.resume || ''
   return (
     <html lang="en">
       <head>
@@ -40,23 +19,7 @@ export default async function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
-        <Header {...menu} resume={resume} />
-        <AppProvider
-          context={{ resume: resume, social: settings?.info?.social }}
-        >
-          {children}
-          {settings?.info?.social && (
-            <Footer
-              social={settings.info.social}
-              email={settings?.info?.email}
-            />
-          )}
-          <Credit />
-        </AppProvider>
-        <Lines />
-        {/* {isDraftMode && <VisualEditing />} */}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }

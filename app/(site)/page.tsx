@@ -1,6 +1,6 @@
 import Homepage from 'components/templates/homepage'
-import { getHomepage } from '../lib/queries'
 import { notFound } from 'next/navigation'
+import { getHomepage } from '../../lib/queries'
 
 export default async function Home() {
   const data = await getHomepage()

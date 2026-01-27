@@ -4,13 +4,17 @@ import { usePathname } from 'next/navigation'
 import classNames from 'classnames'
 import { MenuQueryResult } from '../../sanity.types'
 import { resolveInternalLink } from '../../lib/resolvers'
+import { MenuProps } from './menu'
 
 type Props = {
   modifierClasses?: string
   items: NonNullable<NonNullable<MenuQueryResult>['items']>
   resume: string
 }
-export const DesktopMenu = ({ items, resume }: Props) => {
+export const DesktopMenu = ({
+  items,
+  resume
+}: Omit<MenuProps, 'isMobileMenuOpen' | 'onMobileMenuToggle'>) => {
   const pathname = usePathname()
   return (
     <nav>

@@ -1,14 +1,12 @@
 import { MetadataRoute } from 'next'
-
-import { getAllPosts, getClient } from 'lib/client'
+import { getBlog } from '../lib/queries'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = process.env.NEXT_PUBLIC_URL || 'http://localhost:3000'
 
-  const client = getClient()
-  const posts = await getAllPosts(client)
+  const posts = await getBlog()
 
-  const postUrls: MetadataRoute.Sitemap = posts
+  const postUrls: MetadataRoute.Sitemap = (posts?.items || [])
     .filter(({ slug }) => slug)
     .map((post) => ({
       url: `${baseUrl}/posts/${post.slug}`,

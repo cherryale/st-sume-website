@@ -1,4 +1,4 @@
-import { DocumentIcon } from '@sanity/icons'
+import { PublishIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 /**
@@ -14,9 +14,9 @@ import { defineField, defineType } from 'sanity'
  */
 
 export default defineType({
-  name: 'page',
-  title: 'Page',
-  icon: DocumentIcon,
+  title: 'Blog - All articles',
+  name: 'blogPage',
+  icon: PublishIcon,
   type: 'document',
   fields: [
     defineField({
@@ -26,30 +26,26 @@ export default defineType({
       validation: (rule) => rule.required()
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context)
-      },
-      validation: (rule) => rule.required()
-    }),
-    defineField({
-      name: 'content',
-      title: 'Content',
+      name: 'description',
       type: 'array',
       of: [{ type: 'block' }]
+    }),
+    defineField({
+      title: 'Blog posts',
+      name: 'text',
+      type: 'string',
+      readOnly: true,
+      initialValue:
+        'All blog posts and articles will be automatically rendered on the page.'
     })
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'slug.current'
+      title: 'Blog',
+      subtitle: '/blog'
     },
     prepare({ title, subtitle }) {
-      return { title, subtitle: `/${subtitle}` }
+      return { title, subtitle }
     }
   }
 })

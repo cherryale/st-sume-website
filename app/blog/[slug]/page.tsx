@@ -1,35 +1,26 @@
-// import { draftMode } from 'next/headers'
-// import { notFound } from 'next/navigation'
+import { notFound } from 'next/navigation'
 
-// import { readToken } from 'lib/api'
-// import { getPageBySlug } from '../../../lib/queries'
+import { getBlogPostBySlug } from '../../../lib/queries'
+import { Section } from '../../../components/section/section'
+import Image from 'next/image'
+import { urlForImage } from '../../../lib/resolvers'
+import BlogPost from '../../../components/templates/blog-post'
 
-// export async function generateStaticParams() {
-//   const slugs = await getAllPostsSlugs()
-//   return slugs.map(({ slug }) => ({ slug }))
-// }
+interface PageProps {
+  params: Promise<{ slug: string }>
+}
+export default async function Page({ params }: PageProps) {
+  const data = await getBlogPostBySlug({ params })
 
-// export default async function PostRoute({
-//   params
-// }: {
-//   params: Promise<{ slug: string }>
-// }) {
-//   const { slug } = await params
-//   const isDraftMode = draftMode().isEnabled
+  if (!data) {
+    notFound()
+  }
 
-//   const client = getClient(isDraftMode ? { token: readToken } : undefined)
+  // if (isDraftMode) {
+  //   return (
+  //     <PreviewPostPage post={post} morePosts={morePosts} settings={settings} />
+  //   )
+  // }
 
-//   const data = getPageBySlug({ pa })
-
-//   if (!post) {
-//     notFound()
-//   }
-
-//   // if (isDraftMode) {
-//   //   return (
-//   //     <PreviewPostPage post={post} morePosts={morePosts} settings={settings} />
-//   //   )
-//   // }
-
-//   return <div>Blog post goes here</div>
-// }
+  return <BlogPost {...data} />
+}

@@ -3,6 +3,9 @@ import './globals.css'
 import { getMenu, getSiteSettings } from '../lib/queries'
 import { Header } from '../components/header/header'
 import AppProvider from '../contexts/AppProvider'
+import { Footer } from '../components/footer/footer'
+import Link from 'next/link'
+import { Credit } from '../components/credit/credit'
 
 export default async function RootLayout({
   children
@@ -22,6 +25,7 @@ export default async function RootLayout({
     throw new Error('Menu cannot be empty.')
   }
 
+  const resume = settings?.info?.resume || ''
   return (
     <html lang="en">
       <head>
@@ -37,11 +41,13 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        <Header {...menu} />
-        <AppProvider context={{ resume: menu.resume || '' }}>
-          {children}
-        </AppProvider>
+        <Header {...menu} resume={resume} />
+        <AppProvider context={{ resume: resume }}>{children}</AppProvider>
         <Lines />
+        {settings?.info?.social && (
+          <Footer social={settings.info.social} email={settings?.info?.email} />
+        )}
+        <Credit />
         {/* {isDraftMode && <VisualEditing />} */}
       </body>
     </html>

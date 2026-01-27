@@ -3,17 +3,19 @@
  * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
  */
 
-import { apiVersion, dataset, DRAFT_MODE_ROUTE, projectId } from 'lib/api'
+import { apiVersion, dataset, projectId } from 'lib/api'
 import { settingsPlugin, settingsStructure } from 'plugins/settings'
 import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
-import blog from 'schemas/post'
+import post from 'schemas/blog-post'
 import page from 'schemas/page'
 import settings from 'schemas/singletons/settings'
 import menu from './schemas/singletons/menu'
 import homepage from './schemas/singletons/homepage'
+import blog from './schemas/singletons/blog'
 import work from './schemas/work'
+import research from './schemas/singletons/research'
 
 const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Jé St Sume'
 
@@ -23,8 +25,7 @@ export default defineConfig({
   dataset,
   title,
   schema: {
-    // If you want more content types, you can add them to this array
-    types: [page, work, blog, settings, homepage, menu]
+    types: [page, work, post, settings, homepage, research, blog, menu]
   },
   plugins: [
     structureTool({

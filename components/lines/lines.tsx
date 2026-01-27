@@ -1,43 +1,83 @@
 import classNames from 'classnames'
 
-const commonClasses = 'block fixed z-[-2]'
+const commonClasses = 'block z-[-2]'
 const verticalLinesClass = 'bg-gray-100 h-full top-0 w-[1px]'
-export const Lines = () => {
+interface LinesProps {
+  position?: 'fixed' | 'absolute'
+  verticalOnly?: boolean
+}
+export const Lines = ({
+  verticalOnly = false,
+  position = 'fixed'
+}: LinesProps) => {
   return (
     <>
-      <span
-        className={classNames(commonClasses, verticalLinesClass, 'left-[10%]')}
-      ></span>
-      {/* Accent color line */}
       <span
         className={classNames(
           commonClasses,
           verticalLinesClass,
-          'left-[14%] bg-blue-500 sm:bg-blue-500 z-[-1]'
+          position,
+          'left-[6%]'
         )}
-      ></span>
+      />
+      {/* Accent color line */}
       <span
-        className={classNames(commonClasses, verticalLinesClass, 'left-[18%]')}
-      ></span>
-      <span
-        className={classNames(commonClasses, verticalLinesClass, 'right-[30%]')}
-      ></span>
-      <span
-        className={classNames(commonClasses, verticalLinesClass, 'right-[26%]')}
-      ></span>
-      <span
-        className={classNames(commonClasses, verticalLinesClass, 'right-[6%]')}
-      ></span>
-      <span
-        className={classNames(commonClasses, verticalLinesClass, 'right-[2%]')}
-      ></span>
-      {/* Horizontal line */}
+        className={classNames(
+          verticalLinesClass,
+          position,
+          'block z-[1]',
+          'left-[9%] bg-blue-500 sm:bg-blue-500'
+        )}
+      />
       <span
         className={classNames(
           commonClasses,
-          'bg-gray-100 w-full top-[45%] h-[1px]'
+          verticalLinesClass,
+          position,
+          'left-[12%]'
         )}
-      ></span>
+      />
+      <span
+        className={classNames(
+          commonClasses,
+          verticalLinesClass,
+          position,
+          'right-[30%]'
+        )}
+      />
+      <span
+        className={classNames(
+          commonClasses,
+          verticalLinesClass,
+          position,
+          'right-[26%]'
+        )}
+      />
+      <span
+        className={classNames(
+          commonClasses,
+          verticalLinesClass,
+          position,
+          'right-[6%]'
+        )}
+      />
+      <span
+        className={classNames(
+          commonClasses,
+          verticalLinesClass,
+          position,
+          'right-[2%]'
+        )}
+      />
+      {/* Horizontal line */}
+      {!verticalOnly && (
+        <span
+          className={classNames(
+            'block absolute z-[-2]',
+            'bg-gray-100 w-full bottom-[30%] h-[1px]'
+          )}
+        />
+      )}
     </>
   )
 }

@@ -40,13 +40,19 @@ export const settingsStructure = (
     const settingsListItem = // A singleton not using `documentListItem`, eg no built-in preview
       S.listItem()
         .title(typeDef?.title || 'Settings')
-        .icon(typeDef.icon)
+        .icon(() => '⚙️')
         .child(
           S.editor()
             .id(typeDef.name)
             .schemaType(typeDef.name)
             .documentId(typeDef.name)
         )
+
+    // Menu singleton
+    const menuListItem = S.listItem()
+      .title('Menu')
+      .icon(() => '📋')
+      .child(S.editor().id('menu').schemaType('menu').documentId('menu'))
 
     // Homepage singleton
     const homepageListItem = S.listItem()
@@ -56,26 +62,40 @@ export const settingsStructure = (
         S.editor().id('homepage').schemaType('homepage').documentId('homepage')
       )
 
-    // Menu singleton
-    const menuListItem = S.listItem()
-      .title('Menu')
-      .icon(() => '⚙️')
-      .child(S.editor().id('menu').schemaType('menu').documentId('menu'))
+    const blogListItem = S.listItem()
+      .id('blogPage')
+      .title('Blog')
+      .icon(() => '🖊️')
+      .child(
+        S.editor().id('blogPage').schemaType('blogPage').documentId('blogPage')
+      )
+
+    const researchListItem = S.listItem()
+      .id('research')
+      .title('Research')
+      .icon(() => '🔍')
+      .child(
+        S.editor().id('research').schemaType('research').documentId('research')
+      )
 
     // The default root list items (except custom ones)
     const defaultListItems = S.documentTypeListItems().filter(
       (listItem) =>
         listItem.getId() !== typeDef.name &&
         listItem.getId() !== 'homepage' &&
-        listItem.getId() !== 'menu'
+        listItem.getId() !== 'menu' &&
+        listItem.getId() !== 'blogPage' &&
+        listItem.getId() !== 'research'
     )
 
     return S.list()
       .title('Content')
       .items([
         settingsListItem,
-        homepageListItem,
         menuListItem,
+        homepageListItem,
+        researchListItem,
+        blogListItem,
         S.divider(),
         ...defaultListItems
       ])

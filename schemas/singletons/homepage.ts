@@ -1,5 +1,4 @@
 import { HomeIcon } from '@sanity/icons'
-import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
 
 /**
@@ -33,7 +32,7 @@ export default defineType({
       validation: (rule) => rule.required()
     }),
     defineField({
-      title: 'Subtext',
+      title: 'Tagline',
       name: 'subtext',
       type: 'string',
       validation: (rule) => rule.required()
@@ -47,15 +46,59 @@ export default defineType({
     defineField({
       title: 'Latest work',
       name: 'latest',
-      type: 'array',
-      of: [
-        {
-          name: 'work',
-          type: 'reference' as const,
-          to: [{ type: 'work' }]
-        }
-      ],
-      validation: (rule) => rule.min(1).max(3)
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
+          name: 'description',
+          type: 'array',
+          of: [{ type: 'block' }]
+        }),
+        defineField({
+          title: 'Work',
+          name: 'items',
+          type: 'array',
+          of: [
+            {
+              name: 'reference',
+              type: 'reference' as const,
+              to: [{ type: 'work' }]
+            }
+          ],
+          validation: (rule) => rule.min(1).max(6)
+        })
+      ]
+    }),
+    defineField({
+      title: 'Latest articles',
+      name: 'articles',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
+          title: 'Articles',
+          name: 'items',
+          type: 'array',
+          of: [
+            {
+              name: 'reference',
+              type: 'reference' as const,
+              to: [{ type: 'blog' }]
+            }
+          ],
+          validation: (rule) => rule.min(1).max(6)
+        })
+      ]
     })
   ]
 })

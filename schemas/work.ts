@@ -32,7 +32,8 @@ export default defineType({
         direction: 'horizontal',
         list: [
           { title: 'Link', value: 'link' },
-          { title: 'File', value: 'file' }
+          { title: 'File', value: 'file' },
+          { title: 'In progress', value: 'progress' }
         ]
       },
       validation: (rule) => rule.required()

@@ -1,4 +1,4 @@
-import { DocumentIcon } from '@sanity/icons'
+import { InfoFilledIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
 
 /**
@@ -14,42 +14,37 @@ import { defineField, defineType } from 'sanity'
  */
 
 export default defineType({
-  name: 'page',
-  title: 'Page',
-  icon: DocumentIcon,
+  title: 'Research',
+  name: 'research',
+  icon: InfoFilledIcon,
   type: 'document',
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
       type: 'string',
       validation: (rule) => rule.required()
     }),
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
-      options: {
-        source: 'title',
-        maxLength: 96,
-        isUnique: (value, context) => context.defaultIsUnique(value, context)
-      },
-      validation: (rule) => rule.required()
-    }),
-    defineField({
-      name: 'content',
-      title: 'Content',
+      name: 'description',
       type: 'array',
       of: [{ type: 'block' }]
+    }),
+    defineField({
+      title: 'Research',
+      name: 'text',
+      type: 'string',
+      readOnly: true,
+      initialValue:
+        'All research articles and publications will be automatically rendered on the page.'
     })
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'slug.current'
+      title: 'Research',
+      subtitle: '/research'
     },
     prepare({ title, subtitle }) {
-      return { title, subtitle: `/${subtitle}` }
+      return { title, subtitle }
     }
   }
 })

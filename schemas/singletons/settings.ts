@@ -12,6 +12,43 @@ export default defineType({
   // liveEdit: true,
   fields: [
     defineField({
+      name: 'info',
+      title: 'Global information',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'email',
+          type: 'string',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
+          name: 'resume',
+          type: 'file',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
+          title: 'Social media',
+          name: 'social',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'twitter',
+              type: 'url'
+            }),
+            defineField({
+              name: 'linkedin',
+              type: 'url'
+            }),
+            defineField({
+              name: 'github',
+              type: 'url'
+            })
+          ]
+        })
+      ],
+      validation: (rule) => rule.required()
+    }),
+    defineField({
       name: 'title',
       description: 'This field is the title of your website.',
       title: 'Title',

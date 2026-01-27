@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import classNames from 'classnames'
 import { MenuQueryResult } from '../../sanity.types'
+import { resolveInternalLink } from '../../lib/resolvers'
 
 type Props = {
   modifierClasses?: string
@@ -13,40 +14,48 @@ export const DesktopMenu = ({ items, resume }: Props) => {
   const pathname = usePathname()
   return (
     <nav>
-      <ul className="flex gap-10 items-center">
-        <li>
+      <ul className="eyebrow flex gap-10 items-center text-sm">
+        <li
+          className={classNames(
+            'transition py-1',
+            pathname === '/' && 'border-b border-blue-500'
+          )}
+        >
           <Link
             href="/"
             className={classNames(
-              'no-underline text-grey-600',
-              '/' === pathname && 'text-black-500'
+              'no-underline',
+              pathname === '/' ? 'text-black-500' : 'text-grey-600'
             )}
           >
             Home
           </Link>
         </li>
-        {items.map((item) => (
-          <li key={item._key}>
-            <Link
+        {items.map((item) => {
+          const href = resolveInternalLink(item)
+          const active = href === pathname
+          return (
+            <li
+              key={item._key}
               className={classNames(
-                'no-underline text-grey-600',
-                item.slug === pathname && 'text-black-500'
+                'transition py-1',
+                active && 'border-b border-blue-500'
               )}
-              href={item?.slug || ''}
             >
-              {item?.label || 'Menu link'}
-            </Link>
-          </li>
-        ))}
+              <Link
+                className={classNames(
+                  'no-underline hover:text-black-500',
+                  active ? 'text-black-500' : 'text-grey-300'
+                )}
+                href={href}
+              >
+                {item?.label || 'Menu link'}
+              </Link>
+            </li>
+          )
+        })}
         <li>
-          <Link
-            href={resume}
-            download
-            className={classNames(
-              'eyebrow no-underline text-center p-3',
-              'flex justify-center border border-black min-w-40'
-            )}
-          >
+          <Link href={resume} download className="button-outline text-xs">
             Download CV
           </Link>
         </li>

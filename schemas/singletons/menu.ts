@@ -18,30 +18,6 @@ export default defineType({
           ...internal
         })
       ]
-    }),
-    defineField({
-      name: 'resume',
-      type: 'file',
-      validation: (rule) => rule.required()
-    }),
-    defineField({
-      title: 'Social media',
-      name: 'social',
-      type: 'object',
-      fields: [
-        defineField({
-          name: 'twitter',
-          type: 'url'
-        }),
-        defineField({
-          name: 'linkedin',
-          type: 'url'
-        }),
-        defineField({
-          name: 'github',
-          type: 'url'
-        })
-      ]
     })
   ],
   preview: {

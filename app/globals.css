@@ -7,6 +7,7 @@
   --color-black-500: #212121;
   --color-white-500: #fff;
   --color-grey-100: #efefef;
+  --color-grey-200: #e1e1e1;
   --color-grey-300: #7a7a7a;
   --color-grey-600: #4d4d4d;
 
@@ -56,32 +57,46 @@
     color: var(--color-black);
     line-height: 1.15;
     font-weight: 500;
-    margin-bottom: 1rem;
+    /* letter-spacing: 5px; */
   }
 
   h1 {
-    font-size: clamp(3.5rem, 3rem + 2vw, 4rem);
+    font-size: clamp(2.5rem, 2.75rem + 2vw, 3rem);
   }
 
   h2 {
-    font-size: clamp(3rem, 2.75rem + 1.5vw, 3.5rem);
+    font-size: clamp(2rem, 2rem + 1.5vw, 2.5rem);
   }
 
   h3 {
-    font-size: clamp(2rem, 1.75rem + 1.25vw, 2.5rem);
+    font-size: clamp(1.75rem, 1.75rem + 1.25vw, 2rem);
   }
 
   h4 {
-    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 1.5rem);
   }
 
-  h5,
-  h6 {
+  h5 {
     font-size: 1.25rem;
   }
 
   h6 {
+    font-size: 1rem;
     text-transform: uppercase;
+  }
+}
+
+@layer components {
+  .button {
+    @apply text-sm uppercase font-medium no-underline p-3 inline-flex justify-center min-w-40 gap-2;
+
+    letter-spacing: 5px;
+  }
+
+  .button-outline {
+    @apply text-sm uppercase font-medium no-underline py-3 px-4 inline-flex justify-center min-w-40 border border-black-500 gap-2;
+
+    letter-spacing: 5px;
   }
 }
 
@@ -91,6 +106,50 @@
   }
 
   .eyebrow {
+    @apply text-xs uppercase tracking-wider font-medium;
+  }
+
+  .eyebrow-lg {
     @apply text-sm uppercase tracking-wider font-medium;
+  }
+
+  .box-shadow {
+    &:hover {
+      box-shadow: 0 0 30px var(--color-grey-200);
+    }
+  }
+}
+
+.portable-text {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-5;
+  }
+
+  p {
+    @apply mb-4;
+
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
+      @apply pt-5;
+    }
+  }
+
+  ul,
+  ol {
+    & + h2,
+    & + h3,
+    & + h4,
+    & + h5,
+    & + h6 {
+      @apply pt-5;
+    }
   }
 }

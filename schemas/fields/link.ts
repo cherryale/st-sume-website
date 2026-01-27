@@ -47,9 +47,9 @@ export const internal = defineField({
       title: 'Document',
       name: 'reference',
       type: 'reference' as const,
-      to: [{ type: 'page' }],
+      to: [{ type: 'page' }, { type: 'blogPage' }, { type: 'research' }],
       options: {
-        filter: `defined(slug) || _id == "home" && (!defined(date) || (defined(date) && dateTime(date + 'T00:00:00Z') < dateTime(now())))`
+        filter: `_type == "blogPage" || _type == "research" || defined(slug)`
       }
     }),
     defineField({

@@ -20,31 +20,85 @@ export type Menu = {
   _updatedAt: string
   _rev: string
   items?: Array<{
-    reference?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'page'
-    }
+    reference?:
+      | {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'page'
+        }
+      | {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'blogPage'
+        }
+      | {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'research'
+        }
     label?: string
     _type: 'internal'
     _key: string
   }>
-  resume: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
-    }
-    media?: unknown
-    _type: 'file'
-  }
-  social?: {
-    twitter?: string
-    linkedin?: string
-    github?: string
-  }
+}
+
+export type BlogPage = {
+  _id: string
+  _type: 'blogPage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  text?: string
+}
+
+export type Research = {
+  _id: string
+  _type: 'research'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  text?: string
 }
 
 export type Homepage = {
@@ -85,13 +139,44 @@ export type Homepage = {
     _type: 'block'
     _key: string
   }>
-  latest?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    _key: string
-    [internalGroqTypeReferenceTo]?: 'work'
-  }>
+  latest?: {
+    title: string
+    description?: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
+    items?: Array<{
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      _key: string
+      [internalGroqTypeReferenceTo]?: 'work'
+    }>
+  }
+  articles?: {
+    title: string
+    items?: Array<{
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      _key: string
+      [internalGroqTypeReferenceTo]?: 'blog'
+    }>
+  }
 }
 
 export type SanityImageCrop = {
@@ -116,6 +201,24 @@ export type Settings = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  info: {
+    email: string
+    resume: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+      }
+      media?: unknown
+      _type: 'file'
+    }
+    social?: {
+      twitter?: string
+      linkedin?: string
+      github?: string
+    }
+  }
   title: string
   description: string
   image: {
@@ -132,14 +235,30 @@ export type Settings = {
   }
 }
 
-export type Post = {
+export type Blog = {
   _id: string
-  _type: 'post'
+  _type: 'blog'
   _createdAt: string
   _updatedAt: string
   _rev: string
   title: string
   slug: Slug
+  excerpt?: string
+  date?: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    caption?: string
+    alt?: string
+    _type: 'image'
+  }
   content?: Array<
     | {
         children?: Array<{
@@ -183,20 +302,6 @@ export type Post = {
         _key: string
       }
   >
-  excerpt?: string
-  coverImage?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    _type: 'image'
-  }
-  date?: string
 }
 
 export type Slug = {
@@ -214,7 +319,7 @@ export type Work = {
   label: string
   title: string
   subtext?: string
-  type: 'link' | 'file'
+  type: 'link' | 'file' | 'progress'
   link?: string
   file?: {
     asset?: {
@@ -354,11 +459,13 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | Menu
+  | BlogPage
+  | Research
   | Homepage
   | SanityImageCrop
   | SanityImageHotspot
   | Settings
-  | Post
+  | Blog
   | Slug
   | Work
   | Page
@@ -373,13 +480,22 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol
 // Source: lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0] {  ...,}
+// Query: *[_type == "settings"][0] {  ...,  info {    ...,    "resume": resume.asset->url  }}
 export type SettingsQueryResult = {
   _id: string
   _type: 'settings'
   _createdAt: string
   _updatedAt: string
   _rev: string
+  info: {
+    email: string
+    resume: string | null
+    social?: {
+      twitter?: string
+      linkedin?: string
+      github?: string
+    }
+  }
   title: string
   description: string
   image: {
@@ -396,7 +512,7 @@ export type SettingsQueryResult = {
   }
 } | null
 // Variable: menuQuery
-// Query: *[_type == "menu"][0] {  ...,  items[] {    "_key": _key,    "_type": _type,    "label": label,    "slug": reference->slug.current,    "document": reference->_type  },  "resume": resume.asset->url}
+// Query: *[_type == "menu"][0] {  ...,  items[] {    "_key": _key,    "_type": _type,    "label": label,    "slug": select(      reference->_type == "research" => "research",      reference->_type == "blogPage" => "blog",      reference->slug.current    ),    "document": reference->_type  },}
 export type MenuQueryResult = {
   _id: string
   _type: 'menu'
@@ -407,18 +523,12 @@ export type MenuQueryResult = {
     _key: string
     _type: 'internal'
     label: string | null
-    slug: string | null
-    document: 'page' | null
+    slug: string | 'blog' | 'research' | null
+    document: 'blogPage' | 'page' | 'research' | null
   }> | null
-  resume: string | null
-  social?: {
-    twitter?: string
-    linkedin?: string
-    github?: string
-  }
 } | null
 // Variable: homepageQuery
-// Query: *[_type == "homepage"][0] {    ...  }
+// Query: *[_type == "homepage"][0] {    ...,    latest {      'title': title,      'description': description,      'items': items[]-> {        ...,        "label": label,        "title": title,        "subtext": subtext,        "type": type,        "file": file.asset->url,        "link": link,      },    },    articles {      'title': title,      'items': items[]-> {        ...,        "title": title,        "excerpt": excerpt,        "image": image,        "date": date,        "slug": slug.current,      },    }  }
 export type HomepageQueryResult = {
   _id: string
   _type: 'homepage'
@@ -457,16 +567,391 @@ export type HomepageQueryResult = {
     _type: 'block'
     _key: string
   }>
-  latest?: Array<{
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
+  latest: {
+    title: string
+    description: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }> | null
+    items: Array<{
+      _id: string
+      _type: 'work'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      label: string
+      title: string
+      subtext: string | null
+      type: 'file' | 'link' | 'progress'
+      link: string | null
+      file: string | null
+    }> | null
+  } | null
+  articles: {
+    title: string
+    items: Array<{
+      _id: string
+      _type: 'blog'
+      _createdAt: string
+      _updatedAt: string
+      _rev: string
+      title: string
+      slug: string
+      excerpt: string | null
+      date: string | null
+      image: {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+      } | null
+      content?: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>
+              text?: string
+              _type: 'span'
+              _key: string
+            }>
+            style?:
+              | 'blockquote'
+              | 'h1'
+              | 'h2'
+              | 'h3'
+              | 'h4'
+              | 'h5'
+              | 'h6'
+              | 'normal'
+            listItem?: 'bullet' | 'number'
+            markDefs?: Array<{
+              href?: string
+              _type: 'link'
+              _key: string
+            }>
+            level?: number
+            _type: 'block'
+            _key: string
+          }
+        | {
+            asset?: {
+              _ref: string
+              _type: 'reference'
+              _weak?: boolean
+              [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+            }
+            media?: unknown
+            hotspot?: SanityImageHotspot
+            crop?: SanityImageCrop
+            caption?: string
+            alt?: string
+            _type: 'image'
+            _key: string
+          }
+      >
+    }> | null
+  } | null
+} | null
+// Variable: blogPostBySlugQuery
+// Query: *[_type == "blog" && slug.current == $slug][0] {    ...,    "related": *[_type == "blog" && _id != ^._id][0...3] {      ...,      "title": title,      "excerpt": excerpt,      "image": image,      "date": date,      "slug": slug.current,    }  }
+export type BlogPostBySlugQueryResult = {
+  _id: string
+  _type: 'blog'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  excerpt?: string
+  date?: string
+  image?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+    }
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    caption?: string
+    alt?: string
+    _type: 'image'
+  }
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  related: Array<{
+    _id: string
+    _type: 'blog'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug: string
+    excerpt: string | null
+    date: string | null
+    image: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      caption?: string
+      alt?: string
+      _type: 'image'
+    } | null
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?:
+            | 'blockquote'
+            | 'h1'
+            | 'h2'
+            | 'h3'
+            | 'h4'
+            | 'h5'
+            | 'h6'
+            | 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          caption?: string
+          alt?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+  }>
+} | null
+// Variable: blogQuery
+// Query: *[_type == "blogPage"][0] {    ...,    "items": *[_type == "blog"] {      ...,      "title": title,      "excerpt": excerpt,      "image": image,      "date": date,      "slug": slug.current,    }  }
+export type BlogQueryResult = {
+  _id: string
+  _type: 'blogPage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
     _key: string
-    [internalGroqTypeReferenceTo]?: 'work'
+  }>
+  text?: string
+  items: Array<{
+    _id: string
+    _type: 'blog'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    title: string
+    slug: string
+    excerpt: string | null
+    date: string | null
+    image: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      caption?: string
+      alt?: string
+      _type: 'image'
+    } | null
+    content?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?:
+            | 'blockquote'
+            | 'h1'
+            | 'h2'
+            | 'h3'
+            | 'h4'
+            | 'h5'
+            | 'h6'
+            | 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          caption?: string
+          alt?: string
+          _type: 'image'
+          _key: string
+        }
+    >
+  }>
+} | null
+// Variable: workQuery
+// Query: *[_type == "research"][0] {    ...,    "items": *[_type == "work"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,    }  }
+export type WorkQueryResult = {
+  _id: string
+  _type: 'research'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  text?: string
+  items: Array<{
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    label: string
+    title: string
+    subtext: string | null
+    type: 'file' | 'link' | 'progress'
+    link: string | null
+    file: string | null
   }>
 } | null
 // Variable: pageBySlugQuery
-// Query: *[_type == "page" && slug.current == $slug][0] {    ...  }
+// Query: *[_type == "page" && slug.current == $slug][0] {    ...,    "work": *[_type == "work"][0...6] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,    }  }
 export type PageBySlugQueryResult = {
   _id: string
   _type: 'page'
@@ -493,15 +978,31 @@ export type PageBySlugQueryResult = {
     _type: 'block'
     _key: string
   }>
+  work: Array<{
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    label: string
+    title: string
+    subtext: string | null
+    type: 'file' | 'link' | 'progress'
+    link: string | null
+    file: string | null
+  }>
 } | null
 
 // Query TypeMap
 import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
-    '*[_type == "settings"][0] {\n  ...,\n}': SettingsQueryResult
-    '*[_type == "menu"][0] {\n  ...,\n  items[] {\n    "_key": _key,\n    "_type": _type,\n    "label": label,\n    "slug": reference->slug.current,\n    "document": reference->_type\n  },\n  "resume": resume.asset->url\n}': MenuQueryResult
-    '\n  *[_type == "homepage"][0] {\n    ...\n  }\n': HomepageQueryResult
-    '\n  *[_type == "page" && slug.current == $slug][0] {\n    ...\n  }\n': PageBySlugQueryResult
+    '*[_type == "settings"][0] {\n  ...,\n  info {\n    ...,\n    "resume": resume.asset->url\n  }\n}': SettingsQueryResult
+    '*[_type == "menu"][0] {\n  ...,\n  items[] {\n    "_key": _key,\n    "_type": _type,\n    "label": label,\n    "slug": select(\n      reference->_type == "research" => "research",\n      reference->_type == "blogPage" => "blog",\n      reference->slug.current\n    ),\n    "document": reference->_type\n  },\n}': MenuQueryResult
+    '\n  *[_type == "homepage"][0] {\n    ...,\n    latest {\n      \'title\': title,\n      \'description\': description,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n      },\n    },\n    articles {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "title": title,\n        "excerpt": excerpt,\n        "image": image,\n        "date": date,\n        "slug": slug.current,\n      },\n    }\n  }\n': HomepageQueryResult
+    '\n  *[_type == "blog" && slug.current == $slug][0] {\n    ...,\n    "related": *[_type == "blog" && _id != ^._id][0...3] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogPostBySlugQueryResult
+    '\n  *[_type == "blogPage"][0] {\n    ...,\n    "items": *[_type == "blog"] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogQueryResult
+    '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n    }\n  }\n': WorkQueryResult
+    '\n  *[_type == "page" && slug.current == $slug][0] {\n    ...,\n    "work": *[_type == "work"][0...6] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n    }\n  }\n': PageBySlugQueryResult
   }
 }

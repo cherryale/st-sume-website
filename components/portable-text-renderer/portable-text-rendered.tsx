@@ -7,9 +7,7 @@ import classNames from 'classnames'
 
 const components: Partial<PortableTextReactComponents> = {
   block: {
-    h2: ({ children }) => (
-      <h2 className="strikethrough-black underline-black">{children}</h2>
-    ),
+    h2: ({ children }) => <h2>{children}</h2>,
     h3: ({ children }) => <h3>{children}</h3>,
     h4: ({ children }) => <h4>{children}</h4>,
     h5: ({ children }) => <h5>{children}</h5>,

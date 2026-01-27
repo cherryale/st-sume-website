@@ -8,7 +8,7 @@ import { DRAFT_MODE_ROUTE } from 'lib/api'
 import type { DefaultDocumentNodeResolver } from 'sanity/structure'
 import { Iframe, IframeOptions } from 'sanity-plugin-iframe-pane'
 import authorType from 'schemas/author'
-import postType from 'schemas/post'
+import postType from 'schemas/blog-post'
 
 import AuthorAvatarPreviewPane from './AuthorAvatarPreviewPane'
 

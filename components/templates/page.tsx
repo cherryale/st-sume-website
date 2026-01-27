@@ -1,15 +1,10 @@
-import Image from 'next/image'
-import {
-  BlogPostBySlugQueryResult,
-  PageBySlugQueryResult
-} from '../../sanity.types'
+'use client'
+import { PageBySlugQueryResult } from '../../sanity.types'
 import { Section } from '../section/section'
-import { urlForImage } from '../../lib/resolvers'
 import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
-import { BlogItem } from '../blog-item/blog-item'
-import { WorkItem } from '../work-item/work-item'
 import { GridLayout } from '../grid-layout/grid-layout'
-
+import { motion } from 'framer-motion'
+import { revealVariant } from '../../lib/animation'
 const BasicPage = ({
   title,
   content,
@@ -19,7 +14,12 @@ const BasicPage = ({
   return (
     <>
       <Section>
-        <div className="max-w-2xl mx-auto">
+        <motion.div
+          className="max-w-2xl mx-auto"
+          variants={revealVariant}
+          initial="initial"
+          animate="animate"
+        >
           <h1 className="mb-10 uppercase flex items-center justify-center text-center">
             <span className="text-blue-500">{title.charAt(0)}</span>
             {title.slice(1)}
@@ -30,7 +30,7 @@ const BasicPage = ({
               content={content}
             />
           )}
-        </div>
+        </motion.div>
       </Section>
       {latest.length > 0 && (
         <Section className="bg-grey-100" title="Research">

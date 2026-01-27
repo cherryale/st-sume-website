@@ -1,11 +1,12 @@
 'use client'
-import Link from 'next/link'
 import { MenuQueryResult } from '../../sanity.types'
-import { DesktopMenu } from '../desktop-menu/desktop-menu'
 import { Lines } from '../lines/lines'
 import { useEffect, useRef, useState } from 'react'
 import { debounce } from 'lodash'
 import { Menu } from '../desktop-menu/menu'
+import { Logo } from '../logo/logo'
+import { MenuIcon } from '../menu-icon/menu-icon'
+import classNames from 'classnames'
 
 export const Header = ({
   items,
@@ -29,6 +30,14 @@ export const Header = ({
     }
   }
 
+  const onMobileMenuToggle = () => {
+    setIsMobileMenuOpen((state: boolean) => {
+      const newState = !state
+      document.documentElement.classList.toggle('overflow-hidden', newState)
+      return newState
+    })
+  }
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       setHasWindow(true)
@@ -49,7 +58,6 @@ export const Header = ({
         div.style.transform = 'none'
         div.style.transition = 'none'
         div.style.boxShadow = 'none'
-        div.style.background = 'transparent'
         setIsSticky(false)
       }
       // set isSticky to true if the user has scrolled more than 80px
@@ -58,7 +66,6 @@ export const Header = ({
         if (window.scrollY > height) {
           div.style.position = 'fixed'
           div.style.transform = 'translateY(-100%)'
-          div.style.background = '#fff'
 
           setTimeout(() => {
             div.style.transition = 'all 0.4s cubic-bezier(0.83, 0, 0.17, 1)'
@@ -90,32 +97,41 @@ export const Header = ({
   return (
     <header
       ref={ref}
-      className="flex absolute justify-between top-0 left-0 w-full py-5 px-5 md:px-10 2xl:px-20 z-5 overflow-hidden"
+      className={classNames(
+        'absolute top-0 left-0 w-full h-20 z-5 overflow-hidden',
+        'bg-white px-5 md:px-10 2xl:px-20',
+        'flex justify-between items-center'
+      )}
     >
-      <Lines verticalOnly position="absolute" />
-      <div className="flex items-center">
-        <Link href="/" className="flex gap-2 eyebrow no-underline">
-          <span className="text-blue-500">St</span>
-          <span className="text-black-500">Sume</span>
-        </Link>
-      </div>
+      {(!isMobile || !isMobileMenuOpen) && (
+        <Lines verticalOnly position="absolute" />
+      )}
+      <Logo
+        onClick={
+          isMobile
+            ? () => {
+                setIsMobileMenuOpen(() => {
+                  document.documentElement.classList.toggle(
+                    'overflow-hidden',
+                    false
+                  )
+                  return false
+                })
+              }
+            : undefined
+        }
+      />
       {items && resume && (
         <Menu
           items={items}
           resume={resume}
           isMobile={isMobile}
           isMobileMenuOpen={isMobileMenuOpen}
-          onMobileMenuToggle={() => {
-            setIsMobileMenuOpen((state: boolean) => {
-              const newState = !state
-              document.documentElement.classList.toggle(
-                'overflow-hidden',
-                newState
-              )
-              return newState
-            })
-          }}
+          onMobileMenuToggle={onMobileMenuToggle}
         />
+      )}
+      {isMobile && (
+        <MenuIcon isOpen={isMobileMenuOpen} handleClick={onMobileMenuToggle} />
       )}
     </header>
   )

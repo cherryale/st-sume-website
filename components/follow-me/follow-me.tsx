@@ -32,9 +32,7 @@ export const FollowMe = ({
     <div
       className={classNames(
         'flex items-center gap-5',
-        orientation === 'vertical'
-          ? 'flex-col items-center justify-center'
-          : '',
+        orientation === 'vertical' ? 'md:flex-col justify-center' : '',
         className
       )}
     >
@@ -43,7 +41,7 @@ export const FollowMe = ({
           'eyebrow',
           orientation === 'horizontal'
             ? 'text-white'
-            : 'rotate-90 absolute whitespace-nowrap top-[-65%] text-blue-500'
+            : 'md:rotate-90 md:absolute whitespace-nowrap top-[-65%] text-blue-500'
         )}
       >
         Follow me
@@ -51,7 +49,7 @@ export const FollowMe = ({
       <ul
         className={classNames(
           'flex items-center gap-5',
-          orientation === 'vertical' ? 'flex-col' : ''
+          orientation === 'vertical' ? 'md:flex-col' : ''
         )}
       >
         {Object.entries(context.social).map(([value, key]) => (

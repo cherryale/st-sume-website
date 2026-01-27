@@ -24,14 +24,11 @@ export default async function SiteLayout({
   const resume = settings?.info?.resume || ''
   return (
     <>
-      <Header {...menu} resume={resume} />
       <AppProvider context={{ resume: resume, social: settings?.info?.social }}>
+        <Header {...menu} resume={resume} />
         {children}
         {settings?.info?.social && (
-          <Footer
-            social={settings.info.social}
-            email={settings?.info?.email}
-          />
+          <Footer social={settings.info.social} email={settings?.info?.email} />
         )}
         <Credit />
       </AppProvider>

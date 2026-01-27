@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { HomepageQueryResult } from '../../sanity.types'
 import { urlForImage } from '../../lib/resolvers'
@@ -12,6 +13,7 @@ import { Section } from '../section/section'
 import { GridLayout } from '../grid-layout/grid-layout'
 import { WorkItem } from '../work-item/work-item'
 import { FollowMe } from '../follow-me/follow-me'
+import { revealVariant } from '../../lib/animation'
 
 const Homepage = ({
   title,
@@ -36,14 +38,25 @@ const Homepage = ({
           orientation="vertical"
           className="absolute hidden md:flex md:bottom-10 right-[4.5%]"
         />
-        <Image
-          width={484}
-          height={715}
-          src={urlForImage(image).url()}
-          alt={title}
-          className="min-w-100 2xl:min-w-121"
-        />
-        <div className="max-w-2xl">
+        <motion.figure
+          variants={revealVariant}
+          initial="initial"
+          animate="animate"
+        >
+          <Image
+            width={484}
+            height={715}
+            src={urlForImage(image).url()}
+            alt={title}
+            className="min-w-100 2xl:min-w-121"
+          />
+        </motion.figure>
+        <motion.div
+          variants={revealVariant}
+          initial="initial"
+          animate="animate"
+          className="max-w-2xl"
+        >
           <h1 className="uppercase text-4xl mb-1">
             <span className="text-blue-500">{title.charAt(0)}</span>
             {title.slice(1)}
@@ -69,7 +82,7 @@ const Homepage = ({
             <span className="h-[2px] w-10 bg-blue-500 absolute right-[calc(100%+1rem)]" />
           </h6>
           <WorkItem {...work[0]} variant="small" />
-        </div>
+        </motion.div>
       </div>
       {work.length > 0 && (
         <Section

@@ -26,7 +26,7 @@ export const Lines = ({
           verticalLinesClass,
           position,
           'block z-[1]',
-          'left-[9%] bg-blue-500 sm:bg-blue-500'
+          'left-[9%] sm:bg-blue-500'
         )}
       />
       <span

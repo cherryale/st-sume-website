@@ -18,7 +18,9 @@ const settingsQuery = defineQuery(`*[_type == "settings"][0] {
   }
 }`)
 export const getSiteSettings = async () => {
-  return await client.fetch<SettingsQueryResult>(settingsQuery)
+  return await client.fetch<SettingsQueryResult>(settingsQuery, {}, {
+    next: { tags: ['settings'] }
+  })
 }
 
 const menuQuery = defineQuery(`*[_type == "menu"][0] {
@@ -36,7 +38,9 @@ const menuQuery = defineQuery(`*[_type == "menu"][0] {
   },
 }`)
 export const getMenu = async () => {
-  return await client.fetch<MenuQueryResult>(menuQuery)
+  return await client.fetch<MenuQueryResult>(menuQuery, {}, {
+    next: { tags: ['menu'] }
+  })
 }
 
 const homepageQuery = defineQuery(`
@@ -69,7 +73,9 @@ const homepageQuery = defineQuery(`
   }
 `)
 export const getHomepage = async () => {
-  return await client.fetch<HomepageQueryResult>(homepageQuery)
+  return await client.fetch<HomepageQueryResult>(homepageQuery, {}, {
+    next: { tags: ['homepage', 'work', 'blog'] }
+  })
 }
 
 const blogPostBySlugQuery = defineQuery(`
@@ -93,6 +99,8 @@ export async function getBlogPostBySlug({
   const { slug } = await params
   return await client.fetch<BlogPostBySlugQueryResult>(blogPostBySlugQuery, {
     slug
+  }, {
+    next: { tags: ['blog', `blog:${slug}`] }
   })
 }
 
@@ -110,7 +118,9 @@ const blogQuery = defineQuery(`
   }
 `)
 export async function getBlog() {
-  return await client.fetch<BlogQueryResult>(blogQuery)
+  return await client.fetch<BlogQueryResult>(blogQuery, {}, {
+    next: { tags: ['blogPage', 'blog'] }
+  })
 }
 
 const workQuery = defineQuery(`
@@ -128,7 +138,9 @@ const workQuery = defineQuery(`
   }
 `)
 export async function getWork() {
-  return await client.fetch<WorkQueryResult>(workQuery)
+  return await client.fetch<WorkQueryResult>(workQuery, {}, {
+    next: { tags: ['research', 'work'] }
+  })
 }
 
 const pageBySlugQuery = defineQuery(`
@@ -151,5 +163,7 @@ export async function getPageBySlug({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  return await client.fetch<PageBySlugQueryResult>(pageBySlugQuery, { slug })
+  return await client.fetch<PageBySlugQueryResult>(pageBySlugQuery, { slug }, {
+    next: { tags: ['page', `page:${slug}`, 'work'] }
+  })
 }

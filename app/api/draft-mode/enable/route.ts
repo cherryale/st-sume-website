@@ -12,7 +12,7 @@ const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false,
+  useCdn: process.env.NEXT_PUBLIC_SANITY_DATASET === 'production',
   token
 })
 

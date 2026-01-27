@@ -17,13 +17,11 @@ import blog from './schemas/singletons/blog'
 import work from './schemas/work'
 import research from './schemas/singletons/research'
 
-const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Jé St Sume'
-
 export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
-  title,
+  title: 'Jé St Sume',
   schema: {
     types: [page, work, post, settings, homepage, research, blog, menu]
   },

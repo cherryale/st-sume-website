@@ -88,7 +88,7 @@ export const Header = ({
   return (
     <header
       ref={ref}
-      className="flex absolute justify-between top-0 left-0 w-full py-5 px-5 md:px-10 lg:px-20 z-5 overflow-hidden"
+      className="flex absolute justify-between top-0 left-0 w-full py-5 px-5 md:px-10 2xl:px-20 z-5 overflow-hidden"
     >
       <Lines verticalOnly position="absolute" />
       <div className="flex items-center">

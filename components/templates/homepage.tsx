@@ -11,6 +11,7 @@ import { Arrow } from '../svgs/arrow'
 import { Section } from '../section/section'
 import { GridLayout } from '../grid-layout/grid-layout'
 import { WorkItem } from '../work-item/work-item'
+import { FollowMe } from '../follow-me/follow-me'
 
 const Homepage = ({
   title,
@@ -25,49 +26,49 @@ const Homepage = ({
   const blog = articles?.items || []
   return (
     <>
-      <div className="relative z-2 min-h-screen py-40 px-5 md:px-10 lg:px-20">
-        <div
-          className={classNames(
-            'gap-20 2xl:gap-40 flex flex-col lg:flex-row items-center justify-center'
+      <div
+        className={classNames(
+          'relative z-2 min-h-screen py-10 px-5 md:px-10 2xl:px-20',
+          'gap-20 2xl:gap-40 flex flex-col lg:flex-row items-center justify-center'
+        )}
+      >
+        <FollowMe
+          orientation="vertical"
+          className="absolute hidden md:flex md:bottom-10 right-[4.5%]"
+        />
+        <Image
+          width={484}
+          height={715}
+          src={urlForImage(image).url()}
+          alt={title}
+          className="min-w-100 2xl:min-w-121"
+        />
+        <div className="max-w-2xl">
+          <h1 className="uppercase text-4xl mb-1">
+            <span className="text-blue-500">{title.charAt(0)}</span>
+            {title.slice(1)}
+          </h1>
+          <p className="text-grey-300 font-heading text-lg">{subtext}</p>
+          {content && (
+            <PortableTextRenderer className="mt-5" content={content} />
           )}
-        >
-          <Image
-            width={484}
-            height={715}
-            src={urlForImage(image).url()}
-            alt={title}
-            className="min-w-100 2xl:min-w-121"
-          />
-          <div className="max-w-2xl">
-            <h1 className="uppercase text-4xl mb-1">
-              <span className="text-blue-500">{title.charAt(0)}</span>
-              {title.slice(1)}
-            </h1>
-            <p className="text-grey-300 font-heading text-lg">{subtext}</p>
-            {content && (
-              <PortableTextRenderer className="mt-5" content={content} />
-            )}
-            {context?.resume && (
-              <Link
-                href={context.resume}
-                download
-                className={classNames(
-                  'button-outline mt-5 group',
-                  'hover:text-black-500'
-                )}
-              >
-                Download CV{' '}
-                <i className="w-4 transition-transform group-hover:rotate-45">
-                  <Arrow />
-                </i>
-              </Link>
-            )}
-            <h6 className="mt-20 mb-4 relative flex items-center">
-              Recent work{' '}
-              <span className="h-[2px] w-10 bg-blue-500 absolute right-[calc(100%+1rem)]" />
-            </h6>
-            <WorkItem {...work[0]} variant="small" />
-          </div>
+          {context?.resume && (
+            <Link
+              href={context.resume}
+              download
+              className={classNames('button-outline mt-5 group')}
+            >
+              Download CV{' '}
+              <i className="w-4 transition-transform group-hover:rotate-45">
+                <Arrow />
+              </i>
+            </Link>
+          )}
+          <h6 className="mt-20 mb-4 relative flex items-center">
+            Recent work{' '}
+            <span className="h-[2px] w-10 bg-blue-500 absolute right-[calc(100%+1rem)]" />
+          </h6>
+          <WorkItem {...work[0]} variant="small" />
         </div>
       </div>
       {work.length > 0 && (

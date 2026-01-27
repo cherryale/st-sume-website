@@ -42,12 +42,19 @@ export default async function RootLayout({
       </head>
       <body>
         <Header {...menu} resume={resume} />
-        <AppProvider context={{ resume: resume }}>{children}</AppProvider>
+        <AppProvider
+          context={{ resume: resume, social: settings?.info?.social }}
+        >
+          {children}
+          {settings?.info?.social && (
+            <Footer
+              social={settings.info.social}
+              email={settings?.info?.email}
+            />
+          )}
+          <Credit />
+        </AppProvider>
         <Lines />
-        {settings?.info?.social && (
-          <Footer social={settings.info.social} email={settings?.info?.email} />
-        )}
-        <Credit />
         {/* {isDraftMode && <VisualEditing />} */}
       </body>
     </html>

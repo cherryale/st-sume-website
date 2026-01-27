@@ -4,7 +4,14 @@ import { ReactNode } from 'react'
 import AppContext from './AppContext'
 
 interface SettingsProviderProps {
-  context: { resume: string }
+  context: {
+    resume: string
+    social?: {
+      twitter?: string | undefined
+      linkedin?: string | undefined
+      github?: string | undefined
+    }
+  }
   children: ReactNode
 }
 

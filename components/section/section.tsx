@@ -16,7 +16,7 @@ export const Section = ({
   children
 }: Props) => {
   return (
-    <div className={classNames('px-5 md:px-10 lg:px-20 py-40', className)}>
+    <div className={classNames('px-5 md:px-10 2xl:px-20 py-40', className)}>
       <div className="max-w-7xl mx-auto relative z-2">
         {title && (
           <h2 className="mb-10 uppercase text-3xl flex items-center justify-center text-center">

@@ -58,7 +58,7 @@ export const Lines = ({
           commonClasses,
           verticalLinesClass,
           position,
-          'right-[6%]'
+          'right-[7%]'
         )}
       />
       <span
@@ -66,7 +66,7 @@ export const Lines = ({
           commonClasses,
           verticalLinesClass,
           position,
-          'right-[2%]'
+          'right-[3%]'
         )}
       />
       {/* Horizontal line */}

@@ -41,11 +41,10 @@ export default defineType({
   ],
   preview: {
     select: {
-      title: 'Blog',
-      subtitle: '/blog'
+      title: 'title'
     },
-    prepare({ title, subtitle }) {
-      return { title, subtitle }
+    prepare({ title }) {
+      return { title: title || 'Blog', subtitle: '/blog' }
     }
   }
 })

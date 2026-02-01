@@ -47,10 +47,7 @@ export const internal = defineField({
       title: 'Document',
       name: 'reference',
       type: 'reference' as const,
-      to: [{ type: 'page' }, { type: 'blogPage' }, { type: 'research' }],
-      options: {
-        filter: `_type == "blogPage" || _type == "research" || defined(slug)`
-      }
+      to: [{ type: 'page' }, { type: 'blogPage' }, { type: 'research' }]
     }),
     defineField({
       title: 'Label',
@@ -60,6 +57,17 @@ export const internal = defineField({
   ],
   options: {
     collapsible: false
+  },
+  preview: {
+    select: {
+      title: 'label',
+      reference: 'reference.title'
+    },
+    prepare: ({ title, reference }) => ({
+      title: title || reference || 'Untitled',
+      subtitle: 'Internal Link',
+      media: LinkIcon
+    })
   }
 })
 

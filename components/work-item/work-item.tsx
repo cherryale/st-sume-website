@@ -40,7 +40,7 @@ export const WorkItem = ({
         <p
           className={classNames(
             variant === 'small' ? 'text-sm' : '',
-            'flex items-center gap-2 text-grey-600 mt-2 eyebrow'
+            'flex items-center gap-2 text-grey-600 mt-2 text-sm'
           )}
         >
           {year}

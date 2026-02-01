@@ -19,6 +19,19 @@ export default defineType({
       validation: (rule) => rule.required()
     }),
     defineField({
+      name: 'year',
+      description: 'Year of publication.',
+      type: 'string',
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const parent = context.parent as { type?: string }
+          if (parent?.type !== 'progress' && !value) {
+            return 'Year is required when type is not "In progress".'
+          }
+          return true
+        })
+    }),
+    defineField({
       name: 'subtext',
       type: 'string'
     }),
@@ -69,11 +82,12 @@ export default defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'label'
+      label: 'label',
+      year: 'label'
     },
-    prepare: ({ title, subtitle }) => ({
+    prepare: ({ title, label, year }) => ({
       title,
-      subtitle
+      subtitle: `${year} | ${label}`
     })
   }
 })

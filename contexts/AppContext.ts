@@ -1,12 +1,19 @@
 'use client'
 import { createContext } from 'react'
+import { Image } from 'sanity'
 
-const AppContext = createContext<{
+export type AppContextProps = {
+  title: string
+  description: string
   resume: string
+  thumbnail: Image
   social?: {
     twitter?: string | undefined
     linkedin?: string | undefined
     github?: string | undefined
   }
-} | null>(null)
+}
+
+const AppContext = createContext<AppContextProps | null>(null)
+
 export default AppContext

@@ -13,12 +13,20 @@ export const WorkItem = ({
   type,
   link,
   file,
+  year,
   variant = 'default'
 }: WorkItemProps) => {
   const href = type === 'file' ? file : link
   const Content = (
     <>
-      <span className="eyebrow text-grey-300">{label}</span>
+      <span
+        className={classNames(
+          type === 'progress' ? 'text-grey-300' : 'text-blue-500',
+          'eyebrow'
+        )}
+      >
+        {label}
+      </span>
       <h3
         className={classNames(
           variant === 'small' ? 'text-lg mt-1' : 'text-2xl mt-2',
@@ -28,13 +36,15 @@ export const WorkItem = ({
       >
         {title}
       </h3>
-      {subtext && (
+      {year && (
         <p
           className={classNames(
             variant === 'small' ? 'text-sm' : '',
-            'text-grey-600 mt-2'
+            'flex items-center gap-2 text-grey-600 mt-2 eyebrow'
           )}
         >
+          {year}
+          {subtext && <span className="inline-block h-3 w-[1px] bg-blue-500" />}
           {subtext}
         </p>
       )}
@@ -56,7 +66,7 @@ export const WorkItem = ({
       download={type === 'file'}
       className={classNames(
         variant === 'small' ? '' : 'p-10 box-shadow bg-white',
-        'block group transition no-underline'
+        'block group no-underline'
       )}
     >
       {Content}

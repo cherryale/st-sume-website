@@ -1,3 +1,4 @@
+'use client'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
 import { BlogEntry, WorkEntry } from '../../types/common'

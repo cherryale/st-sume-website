@@ -4,6 +4,7 @@ import { Header } from '../../components/header/header'
 import AppProvider from '../../contexts/AppProvider'
 import { Footer } from '../../components/footer/footer'
 import { Credit } from '../../components/credit/credit'
+import { description } from '../../lib/demo.data'
 
 export default async function SiteLayout({
   children
@@ -24,7 +25,15 @@ export default async function SiteLayout({
   const resume = settings?.info?.resume || ''
   return (
     <>
-      <AppProvider context={{ resume: resume, social: settings?.info?.social }}>
+      <AppProvider
+        context={{
+          thumbnail: settings?.info?.thumbnail,
+          resume: resume,
+          social: settings?.info?.social,
+          title: settings.title,
+          description: settings.description
+        }}
+      >
         <Header {...menu} resume={resume} />
         {children}
         {settings?.info?.social && (

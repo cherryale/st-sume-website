@@ -114,6 +114,9 @@
   }
 
   .box-shadow {
+    transition: all 0.2s ease-in;
+    box-shadow: 0 0 30px transparent;
+
     &:hover {
       box-shadow: 0 0 30px var(--color-grey-200);
     }

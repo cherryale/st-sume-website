@@ -1,9 +1,13 @@
+'use client'
 import Image from 'next/image'
 import { BlogPostBySlugQueryResult } from '../../sanity.types'
 import { Section } from '../section/section'
 import { urlForImage } from '../../lib/resolvers'
 import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
 import { GridLayout } from '../grid-layout/grid-layout'
+import { motion } from 'framer-motion'
+import { revealVariant } from '../../lib/animation'
+import { Author } from '../author/author'
 
 const BlogPost = ({
   _createdAt,
@@ -22,7 +26,7 @@ const BlogPost = ({
 
   const articles = related || []
   return (
-    <>
+    <motion.div variants={revealVariant} initial="initial" animate="animate">
       <Section>
         <div className="max-w-2xl text-center mx-auto">
           <span className="block eyebrow text-grey-300">{publishedAt}</span>
@@ -45,10 +49,10 @@ const BlogPost = ({
           </figure>
         )}
         {content && (
-          <PortableTextRenderer
-            className="max-w-2xl mx-auto mt-20"
-            content={content}
-          />
+          <div className="max-w-2xl mx-auto mt-20">
+            <PortableTextRenderer content={content} />
+            <Author />
+          </div>
         )}
       </Section>
       {articles.length > 0 && (
@@ -56,7 +60,7 @@ const BlogPost = ({
           <GridLayout items={articles} />
         </Section>
       )}
-    </>
+    </motion.div>
   )
 }
 

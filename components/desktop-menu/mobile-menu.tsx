@@ -84,23 +84,6 @@ export const MobileMenu = ({
               exit="exit"
               className="flex flex-col items-center gap-5 list-none eyebrow"
             >
-              <li
-                className={classNames(
-                  'transition py-1',
-                  pathname === '/' && 'border-b border-blue-500'
-                )}
-              >
-                <Link
-                  href="/"
-                  className={classNames(
-                    'no-underline',
-                    pathname === '/' ? 'text-black-500' : 'text-grey-600'
-                  )}
-                  onClick={onMobileMenuToggle}
-                >
-                  Home
-                </Link>
-              </li>
               {items.map((item) => {
                 const href = resolveInternalLink(item)
                 const active = href === pathname

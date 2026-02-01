@@ -17,6 +17,13 @@ export default defineType({
       type: 'object',
       fields: [
         defineField({
+          name: 'thumbnail',
+          type: 'image',
+          description:
+            'This image will be used at the bottom of each blog post in the author section. Square images work best, e.g. 200x200 pixels.',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
           name: 'email',
           type: 'string',
           validation: (rule) => rule.required()

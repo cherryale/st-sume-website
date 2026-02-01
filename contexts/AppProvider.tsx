@@ -1,23 +1,13 @@
 'use client'
 
 import { ReactNode } from 'react'
-import AppContext from './AppContext'
+import AppContext, { AppContextProps } from './AppContext'
 
-interface SettingsProviderProps {
-  context: {
-    resume: string
-    social?: {
-      twitter?: string | undefined
-      linkedin?: string | undefined
-      github?: string | undefined
-    }
-  }
+interface AppProviderProps {
+  context: AppContextProps
   children: ReactNode
 }
 
-export default function AppProvider({
-  context,
-  children
-}: SettingsProviderProps) {
+export default function AppProvider({ context, children }: AppProviderProps) {
   return <AppContext.Provider value={context}>{children}</AppContext.Provider>
 }

@@ -15,11 +15,13 @@ const ICONS: Record<string, ReactElement> = {
 }
 
 interface FollowMeProps {
+  color?: 'light' | 'dark'
   orientation?: 'vertical' | 'horizontal'
   className?: string
 }
 export const FollowMe = ({
   orientation = 'horizontal',
+  color = 'dark',
   className = ''
 }: FollowMeProps) => {
   const context = useContext(AppContext)
@@ -39,9 +41,10 @@ export const FollowMe = ({
       <span
         className={classNames(
           'eyebrow',
-          orientation === 'horizontal'
-            ? 'text-white'
-            : 'md:rotate-90 md:absolute whitespace-nowrap top-[-65%] text-blue-500'
+          color === 'light' ? 'text-white' : 'text-blue-500',
+          orientation === 'vertical'
+            ? 'md:rotate-90 md:absolute whitespace-nowrap top-[-65%]'
+            : ''
         )}
       >
         Follow me
@@ -58,7 +61,7 @@ export const FollowMe = ({
               href={value}
               target="_blank"
               className={classNames(
-                orientation === 'horizontal'
+                color === 'light'
                   ? 'text-grey-200 hover:text-white'
                   : 'text-black-500 hover:text-blue-500'
               )}

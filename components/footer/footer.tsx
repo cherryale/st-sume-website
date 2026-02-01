@@ -11,7 +11,7 @@ export const Footer = ({
           If you wish to contact me, please feel free to reach out via email at{' '}
           {email}.
         </p>
-        <FollowMe />
+        <FollowMe color="light" />
       </div>
     </footer>
   )

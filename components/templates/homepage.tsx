@@ -55,7 +55,7 @@ const Homepage = ({
           variants={revealVariant}
           initial="initial"
           animate="animate"
-          className="max-w-2xl"
+          className="max-w-xl"
         >
           <h1 className="uppercase text-4xl mb-1">
             <span className="text-blue-500">{title.charAt(0)}</span>
@@ -85,16 +85,12 @@ const Homepage = ({
         </motion.div>
       </div>
       {work.length > 0 && (
-        <Section
-          className="bg-gray-100"
-          title={latest?.title}
-          description={latest?.description}
-        >
+        <Section title={latest?.title} description={latest?.description}>
           <GridLayout items={work} />
         </Section>
       )}
       {blog.length > 0 && (
-        <Section className="bg-gray-100" title={articles?.title}>
+        <Section title={articles?.title}>
           <GridLayout items={blog} />
         </Section>
       )}

@@ -202,6 +202,18 @@ export type Settings = {
   _updatedAt: string
   _rev: string
   info: {
+    thumbnail: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
     email: string
     resume: {
       asset?: {
@@ -318,6 +330,7 @@ export type Work = {
   _rev: string
   label: string
   title: string
+  year?: string
   subtext?: string
   type: 'link' | 'file' | 'progress'
   link?: string
@@ -488,6 +501,18 @@ export type SettingsQueryResult = {
   _updatedAt: string
   _rev: string
   info: {
+    thumbnail: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
     email: string
     resume: string | null
     social?: {
@@ -595,6 +620,7 @@ export type HomepageQueryResult = {
       _rev: string
       label: string
       title: string
+      year?: string
       subtext: string | null
       type: 'file' | 'link' | 'progress'
       link: string | null
@@ -944,6 +970,7 @@ export type WorkQueryResult = {
     _rev: string
     label: string
     title: string
+    year?: string
     subtext: string | null
     type: 'file' | 'link' | 'progress'
     link: string | null
@@ -986,6 +1013,7 @@ export type PageBySlugQueryResult = {
     _rev: string
     label: string
     title: string
+    year?: string
     subtext: string | null
     type: 'file' | 'link' | 'progress'
     link: string | null

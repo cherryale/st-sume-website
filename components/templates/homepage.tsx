@@ -48,7 +48,7 @@ const Homepage = ({
             height={715}
             src={urlForImage(image).url()}
             alt={title}
-            className="min-w-100 2xl:min-w-121"
+            className="md:min-w-100 2xl:min-w-121"
           />
         </motion.figure>
         <motion.div

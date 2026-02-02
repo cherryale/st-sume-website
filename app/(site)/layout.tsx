@@ -36,9 +36,7 @@ export default async function SiteLayout({
       >
         <Header {...menu} resume={resume} />
         {children}
-        {settings?.info?.social && (
-          <Footer social={settings.info.social} email={settings?.info?.email} />
-        )}
+        {settings?.info?.social && <Footer email={settings?.info?.email} />}
         <Credit />
       </AppProvider>
       <Lines />

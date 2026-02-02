@@ -3,7 +3,7 @@ import { FollowMe } from '../follow-me/follow-me'
 
 export const Footer = ({
   email
-}: Omit<NonNullable<SettingsQueryResult>['info'], 'resume' | 'thumbnail'>) => {
+}: Pick<NonNullable<SettingsQueryResult>['info'], 'email'>) => {
   return (
     <footer className="relative z-2 bg-blue-500 text-white px-5 md:px-10 2xl:px-20 py-5">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-10">

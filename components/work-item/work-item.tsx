@@ -2,11 +2,14 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { Arrow } from '../svgs/arrow'
 import { WorkEntry } from '../../types/common'
+import Image from 'next/image'
+import { urlForImage } from '../../lib/resolvers'
 
 interface WorkItemProps extends WorkEntry {
   variant?: 'default' | 'small'
 }
 export const WorkItem = ({
+  image,
   title,
   subtext,
   label,
@@ -21,7 +24,7 @@ export const WorkItem = ({
     <>
       <span
         className={classNames(
-          type === 'progress' ? 'text-grey-300' : 'text-blue-500',
+          type === 'progress' ? 'text-gray-500' : 'text-blue-500',
           'eyebrow'
         )}
       >
@@ -30,34 +33,46 @@ export const WorkItem = ({
       <h3
         className={classNames(
           variant === 'small' ? 'text-lg mt-1' : 'text-2xl mt-2',
-          'font-heading mb-0 transition-colors',
-          'group-hover:text-blue-500'
+          'font-heading mb-0 transition-colors underline-offset-3 decoration-1 group-hover:underline'
         )}
       >
         {title}
       </h3>
-      {year && (
-        <p
-          className={classNames(
-            variant === 'small' ? 'text-sm' : '',
-            'flex items-center gap-2 text-grey-600 mt-2 text-sm'
-          )}
-        >
-          {year}
-          {subtext && <span className="inline-block h-3 w-[1px] bg-blue-500" />}
-          {subtext}
-        </p>
+
+      {(year || subtext) && (
+        <div className="text-gray-500 group-hover:text-gray-500">
+          <p className={classNames('flex items-center gap-2 mt-2 text-sm')}>
+            {year}
+            {year && subtext && (
+              <span className="inline-block h-3 w-[1px] bg-blue-500" />
+            )}
+            {subtext}
+          </p>
+        </div>
       )}
     </>
   )
   return type === 'progress' ? (
-    <div
-      className={classNames(
-        'block',
-        variant === 'default' ? 'p-10 bg-white' : ''
+    <div className="h-full">
+      {image && (
+        <figure className="aspect-video overflow-hidden">
+          <Image
+            alt={image?.alt || ''}
+            width={900}
+            height={562}
+            src={urlForImage(image).width(900).height(562).url()}
+            className="transition-transform duration-500 group-hover:scale-[1.05]"
+          />
+        </figure>
       )}
-    >
-      {Content}
+      <div
+        className={classNames(
+          'block',
+          variant === 'default' && image ? 'p-5' : 'p-10 bg-white h-full'
+        )}
+      >
+        {Content}
+      </div>
     </div>
   ) : (
     <Link

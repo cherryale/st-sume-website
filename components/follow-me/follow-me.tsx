@@ -41,9 +41,9 @@ export const FollowMe = ({
       <span
         className={classNames(
           'eyebrow',
-          color === 'light' ? 'text-white' : 'text-blue-500',
+          color === 'light' ? 'text-gray-50' : 'text-blue-500',
           orientation === 'vertical'
-            ? 'md:rotate-90 md:absolute whitespace-nowrap top-[-65%]'
+            ? 'md:rotate-90 md:absolute whitespace-nowrap top-[-100%]'
             : ''
         )}
       >
@@ -55,22 +55,29 @@ export const FollowMe = ({
           orientation === 'vertical' ? 'md:flex-col' : ''
         )}
       >
-        {Object.entries(context.social).map(([value, key]) => (
-          <li key={key} className="w-5">
-            <Link
-              href={value}
-              target="_blank"
-              className={classNames(
-                color === 'light'
-                  ? 'text-grey-200 hover:text-white'
-                  : 'text-black-500 hover:text-blue-500'
-              )}
-              title={key}
-            >
-              {ICONS[value]}
-            </Link>
-          </li>
-        ))}
+        {Object.entries(context.social).map(([key, value]) => {
+          console.log(value)
+          if (!value) {
+            return null
+          }
+
+          return (
+            <li key={key} className="w-5">
+              <Link
+                href={value}
+                target="_blank"
+                className={classNames(
+                  color === 'light'
+                    ? 'text-white hover:text-white'
+                    : 'text-black-500 hover:text-blue-500'
+                )}
+                title={key}
+              >
+                {ICONS[key]}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
     </div>
   )

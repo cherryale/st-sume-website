@@ -33,8 +33,10 @@ const BasicPage = ({
         </motion.div>
       </Section>
       {latest.length > 0 && (
-        <Section className="bg-grey-100" title="Research">
-          <GridLayout items={latest} />
+        <Section className="bg-gray-100" title="Research">
+          <GridLayout
+            items={latest.map((item) => ({ ...item, image: undefined }))}
+          />
         </Section>
       )}
     </>

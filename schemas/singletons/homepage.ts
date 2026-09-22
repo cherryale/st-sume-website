@@ -67,7 +67,39 @@ export default defineType({
             {
               name: 'reference',
               type: 'reference' as const,
-              to: [{ type: 'work' }]
+              to: [{ type: 'work' }],
+              options: {
+                filter: 'type != "progress"'
+              }
+            }
+          ],
+          validation: (rule) => rule.min(1).max(6)
+        })
+      ]
+    }),
+    defineField({
+      title: 'Working papers',
+      name: 'wip',
+      type: 'object',
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'Title',
+          type: 'string',
+          validation: (rule) => rule.required()
+        }),
+        defineField({
+          title: 'Papers',
+          name: 'items',
+          type: 'array',
+          of: [
+            {
+              name: 'reference',
+              type: 'reference' as const,
+              to: [{ type: 'work' }],
+              options: {
+                filter: 'type == "progress"'
+              }
             }
           ],
           validation: (rule) => rule.min(1).max(6)

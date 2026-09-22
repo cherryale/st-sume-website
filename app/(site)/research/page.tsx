@@ -26,5 +26,10 @@ export default async function Research() {
     notFound()
   }
 
-  return <Work {...data} />
+  return (
+    <Work
+      {...data}
+      items={data?.items.map((item) => ({ ...item, image: undefined }))}
+    />
+  )
 }

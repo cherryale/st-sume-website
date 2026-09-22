@@ -12,7 +12,7 @@ export const DesktopMenu = ({
   const pathname = usePathname()
   return (
     <nav>
-      <ul className="eyebrow flex gap-10 items-center text-sm">
+      <ul className="eyebrow-lg flex gap-10 items-center text-base">
         {items.map((item) => {
           const href = resolveInternalLink(item)
           const active = href === pathname
@@ -27,7 +27,7 @@ export const DesktopMenu = ({
               <Link
                 className={classNames(
                   'no-underline hover:text-black-500',
-                  active ? 'text-black-500' : 'text-grey-300'
+                  active ? 'text-black-500' : 'text-gray-500'
                 )}
                 href={href}
               >
@@ -37,7 +37,12 @@ export const DesktopMenu = ({
           )
         })}
         <li>
-          <Link href={resume} download className="button-outline text-xs">
+          <Link
+            href={resume}
+            download
+            target="_blank"
+            className="button-outline"
+          >
             Download CV
           </Link>
         </li>

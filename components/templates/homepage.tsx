@@ -21,10 +21,12 @@ const Homepage = ({
   image,
   content,
   latest,
+  wip,
   articles
 }: NonNullable<HomepageQueryResult>) => {
   const context = useContext(AppContext)
   const work = latest?.items || []
+  const papers = wip?.items || []
   const blog = articles?.items || []
   return (
     <>
@@ -61,7 +63,7 @@ const Homepage = ({
             <span className="text-blue-500">{title.charAt(0)}</span>
             {title.slice(1)}
           </h1>
-          <p className="text-grey-300 font-heading text-lg">{subtext}</p>
+          <p className="text-gray-500 font-heading text-lg">{subtext}</p>
           {content && (
             <PortableTextRenderer className="mt-5" content={content} />
           )}
@@ -69,6 +71,7 @@ const Homepage = ({
             <Link
               href={context.resume}
               download
+              target="_blank"
               className={classNames('button-outline mt-5 group')}
             >
               Download CV{' '}
@@ -89,9 +92,9 @@ const Homepage = ({
           <GridLayout items={work} />
         </Section>
       )}
-      {blog.length > 0 && (
-        <Section title={articles?.title}>
-          <GridLayout items={blog} />
+      {papers.length > 0 && (
+        <Section className="pt-0" title={wip?.title}>
+          <GridLayout items={papers} />
         </Section>
       )}
     </>

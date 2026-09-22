@@ -107,11 +107,13 @@ export default defineType({
     prepare({ title, date }) {
       return {
         title,
-        subtitle: new Date(date).toLocaleDateString('en-US', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric'
-        })
+        subtitle: date
+          ? new Date(date).toLocaleDateString('en-US', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric'
+            })
+          : 'In progress'
       }
     }
   }

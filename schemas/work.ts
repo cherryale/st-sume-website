@@ -36,6 +36,21 @@ export default defineType({
       type: 'string'
     }),
     defineField({
+      name: 'image',
+      type: 'image',
+      options: {
+        hotspot: true
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO and accessiblity.'
+        }
+      ]
+    }),
+    defineField({
       title: 'Is it a link or a file?',
       name: 'type',
       type: 'string',
@@ -83,11 +98,11 @@ export default defineType({
     select: {
       title: 'title',
       label: 'label',
-      year: 'label'
+      year: 'year'
     },
     prepare: ({ title, label, year }) => ({
       title,
-      subtitle: `${year} | ${label}`
+      subtitle: `${year ? `${year} | ` : ''}${label}`
     })
   }
 })

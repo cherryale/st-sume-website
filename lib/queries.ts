@@ -59,6 +59,18 @@ const homepageQuery = defineQuery(`
         "link": link,
       },
     },
+    wip {
+      'title': title,
+      'items': items[]-> {
+        ...,
+        "label": label,
+        "title": title,
+        "subtext": subtext,
+        "type": type,
+        "file": file.asset->url,
+        "link": link,
+      },
+    },
     articles {
       'title': title,
       'items': items[]-> {

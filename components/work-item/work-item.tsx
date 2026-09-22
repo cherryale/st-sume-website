@@ -2,11 +2,14 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { Arrow } from '../svgs/arrow'
 import { WorkEntry } from '../../types/common'
+import Image from 'next/image'
+import { urlForImage } from '../../lib/resolvers'
 
 interface WorkItemProps extends WorkEntry {
   variant?: 'default' | 'small'
 }
 export const WorkItem = ({
+  image,
   title,
   subtext,
   label,
@@ -36,11 +39,11 @@ export const WorkItem = ({
         {title}
       </h3>
 
-      {year && (
+      {(year || subtext) && (
         <div className="text-gray-500 group-hover:text-gray-500">
           <p className={classNames('flex items-center gap-2 mt-2 text-sm')}>
             {year}
-            {subtext && (
+            {year && subtext && (
               <span className="inline-block h-3 w-[1px] bg-blue-500" />
             )}
             {subtext}
@@ -50,13 +53,21 @@ export const WorkItem = ({
     </>
   )
   return type === 'progress' ? (
-    <div
-      className={classNames(
-        'block',
-        variant === 'default' ? 'p-10 bg-white' : ''
+    <div>
+      {image && (
+        <figure className="aspect-video overflow-hidden">
+          <Image
+            alt={image?.alt || ''}
+            width={900}
+            height={562}
+            src={urlForImage(image).width(900).height(562).url()}
+            className="transition-transform duration-500 group-hover:scale-[1.05]"
+          />
+        </figure>
       )}
-    >
-      {Content}
+      <div className={classNames('block', variant === 'default' ? 'p-5' : '')}>
+        {Content}
+      </div>
     </div>
   ) : (
     <Link

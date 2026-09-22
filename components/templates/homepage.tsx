@@ -21,10 +21,12 @@ const Homepage = ({
   image,
   content,
   latest,
+  wip,
   articles
 }: NonNullable<HomepageQueryResult>) => {
   const context = useContext(AppContext)
   const work = latest?.items || []
+  const papers = wip?.items || []
   const blog = articles?.items || []
   return (
     <>
@@ -90,9 +92,9 @@ const Homepage = ({
           <GridLayout items={work} />
         </Section>
       )}
-      {blog.length > 0 && (
-        <Section title={articles?.title}>
-          <GridLayout items={blog} />
+      {papers.length > 0 && (
+        <Section className="pt-0" title={wip?.title}>
+          <GridLayout items={papers} />
         </Section>
       )}
     </>

@@ -6,7 +6,7 @@ import { GridLayout } from '../grid-layout/grid-layout'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
 
-const Blog = ({ title, description, items }: NonNullable<WorkQueryResult>) => {
+const Work = ({ title, description, items }: NonNullable<WorkQueryResult>) => {
   return (
     <>
       <Section>
@@ -37,4 +37,4 @@ const Blog = ({ title, description, items }: NonNullable<WorkQueryResult>) => {
   )
 }
 
-export default Blog
+export default Work

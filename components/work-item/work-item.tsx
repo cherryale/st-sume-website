@@ -53,7 +53,7 @@ export const WorkItem = ({
     </>
   )
   return type === 'progress' ? (
-    <div>
+    <div className="h-full">
       {image && (
         <figure className="aspect-video overflow-hidden">
           <Image
@@ -65,7 +65,12 @@ export const WorkItem = ({
           />
         </figure>
       )}
-      <div className={classNames('block', variant === 'default' ? 'p-5' : '')}>
+      <div
+        className={classNames(
+          'block',
+          variant === 'default' && image ? 'p-5' : 'p-10 bg-white h-full'
+        )}
+      >
         {Content}
       </div>
     </div>

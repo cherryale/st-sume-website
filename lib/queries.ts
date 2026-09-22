@@ -158,7 +158,7 @@ export async function getWork() {
 const pageBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug][0] {
     ...,
-    "work": *[_type == "work"][0...6] {
+    "work": *[_type == "work"] | order(_createdAt desc)[0...6] {
       ...,
       "label": label,
       "title": title,

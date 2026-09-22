@@ -6,10 +6,6 @@
 
   --color-black-500: #212121;
   --color-white-500: #fff;
-  --color-grey-100: #efefef;
-  --color-grey-200: #e1e1e1;
-  --color-grey-300: #7a7a7a;
-  --color-grey-600: #4d4d4d;
 
   /* Accent */
   --color-blue-500: #005f9e;
@@ -25,7 +21,7 @@
   body {
     background-color: var(--color-white);
     box-sizing: border-box;
-    color: var(--color-gray-600);
+    color: var(--color-gray-700);
     font-family: var(--font-family-base);
     font-size: 16px;
     line-height: 1.5;
@@ -94,7 +90,7 @@
   }
 
   .button-outline {
-    @apply inline-flex justify-center gap-2 text-sm uppercase font-medium no-underline py-3 px-4 min-w-40 border border-black-500 hover:border-blue-500;
+    @apply inline-flex transition justify-center gap-2 text-sm uppercase font-medium no-underline py-3 px-4 min-w-40 border border-black-500 hover:bg-black-500 hover:text-white;
 
     letter-spacing: 5px;
   }
@@ -118,7 +114,7 @@
     box-shadow: 0 0 30px transparent;
 
     &:hover {
-      box-shadow: 0 0 30px var(--color-grey-200);
+      box-shadow: 0 0 30px oklch(92.8% 0.006 264.531);
     }
   }
 }

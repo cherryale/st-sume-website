@@ -29,7 +29,7 @@ const BlogPost = ({
     <motion.div variants={revealVariant} initial="initial" animate="animate">
       <Section>
         <div className="max-w-2xl text-center mx-auto">
-          <span className="block eyebrow text-grey-300">{publishedAt}</span>
+          <span className="block eyebrow text-gray-500">{publishedAt}</span>
           <h1 className="text-6xl mt-2 font-heading">{title}</h1>
           {excerpt && <p className="text-lg mt-10">{excerpt}</p>}
         </div>
@@ -42,7 +42,7 @@ const BlogPost = ({
               src={urlForImage(image).width(1280).height(750).url()}
             />
             {image?.caption && (
-              <figcaption className="text-sm text-grey-300 mt-5 w-full">
+              <figcaption className="text-sm text-gray-500 mt-5 w-full">
                 {image?.caption}
               </figcaption>
             )}
@@ -56,7 +56,7 @@ const BlogPost = ({
         )}
       </Section>
       {articles.length > 0 && (
-        <Section className="bg-grey-100" title="More articles">
+        <Section className="bg-gray-100" title="More articles">
           <GridLayout items={articles} />
         </Section>
       )}

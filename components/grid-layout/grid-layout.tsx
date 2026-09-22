@@ -20,11 +20,7 @@ export const GridLayout = ({ items }: GridLayoutProps) => {
         return item._type === 'work' ? (
           <WorkItem key={item._id} {...item} />
         ) : (
-          <BlogItem
-            {...item}
-            key={item._id}
-            date={item?.date || item._createdAt}
-          />
+          <BlogItem {...item} key={item._id} date={item?.date} />
         )
       })}
     </motion.div>

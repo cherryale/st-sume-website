@@ -19,7 +19,7 @@ const PageNotFound = () => {
         animate="animate"
         className="max-w-2xl"
       >
-        <h1 className="eyebrow text-grey-300">Error 404</h1>
+        <h1 className="eyebrow text-gray-500">Error 404</h1>
         <h2 className="uppercase text-4xl flex items-center justify-center text-center mt-2 mb-4">
           <span className="text-blue-500">P</span>
           age not found
@@ -28,11 +28,7 @@ const PageNotFound = () => {
           The page you were looking for either does not exist or has been
           delete. Apologies for the inconvenience.
         </p>
-        <Link
-          href="/"
-          download
-          className={classNames('button-outline mt-10 group')}
-        >
+        <Link href="/" className={classNames('button-outline mt-10 group')}>
           Back to Homepage
         </Link>
       </motion.div>

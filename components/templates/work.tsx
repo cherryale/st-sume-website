@@ -14,9 +14,9 @@ const Blog = ({ title, description, items }: NonNullable<WorkQueryResult>) => {
           variants={revealVariant}
           initial="initial"
           animate="animate"
-          className="max-w-2xl mx-auto text-center"
+          className="max-w-2xl mx-auto"
         >
-          <h1 className="uppercase flex items-center justify-center">
+          <h1 className="uppercase flex items-center justify-center text-center mb-10">
             <span className="text-blue-500">{title.charAt(0)}</span>
             {title.slice(1)}
           </h1>
@@ -29,7 +29,7 @@ const Blog = ({ title, description, items }: NonNullable<WorkQueryResult>) => {
         </motion.div>
       </Section>
       {items.length > 0 && (
-        <Section className="bg-grey-100">
+        <Section className="bg-gray-100">
           <GridLayout items={items} />
         </Section>
       )}

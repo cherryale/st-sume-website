@@ -82,7 +82,7 @@ export const MobileMenu = ({
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col items-center gap-5 list-none eyebrow"
+              className="flex flex-col items-center gap-5 list-none eyebrow !text-base"
             >
               {items.map((item) => {
                 const href = resolveInternalLink(item)
@@ -98,7 +98,7 @@ export const MobileMenu = ({
                     <Link
                       className={classNames(
                         'no-underline hover:text-black-500',
-                        active ? 'text-black-500' : 'text-grey-300'
+                        active ? 'text-black-500' : 'text-gray-500'
                       )}
                       href={href}
                       onClick={onMobileMenuToggle}

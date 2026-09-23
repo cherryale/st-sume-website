@@ -59,12 +59,7 @@ const homepageQuery = defineQuery(`
       'description': description,
       'items': items[]-> {
         ...,
-        "label": label,
-        "title": title,
-        "subtext": subtext,
-        "type": type,
         "file": file.asset->url,
-        "link": link,
         "page": select(
           page->_type == "research" => "research",
           page->_type == "blogPage" => "blog",
@@ -76,12 +71,7 @@ const homepageQuery = defineQuery(`
       'title': title,
       'items': items[]-> {
         ...,
-        "label": label,
-        "title": title,
-        "subtext": subtext,
-        "type": type,
         "file": file.asset->url,
-        "link": link,
         "page": select(
           page->_type == "research" => "research",
           page->_type == "blogPage" => "blog",

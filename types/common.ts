@@ -6,4 +6,4 @@ import {
 export type BlogEntry =
   NonNullable<BlogPostBySlugQueryResult>['related'][number]
 
-export type WorkEntry = NonNullable<PageBySlugQueryResult>['work'][number]
+export type WorkEntry = NonNullable<PageBySlugQueryResult>['items'][number]

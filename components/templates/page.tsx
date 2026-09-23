@@ -10,10 +10,15 @@ const BasicPage = ({
   title,
   content,
   items,
-  wip
+  wip = []
 }: NonNullable<PageBySlugQueryResult>) => {
   const research = items || []
-  const papers = wip || []
+  const papers = [
+    ...wip.filter((item) => !!item.page),
+    ...wip.filter((item) => !item.page)
+  ]
+
+  console.log('wip: ', wip)
   return (
     <>
       <Section className="mt-20">
@@ -40,24 +45,23 @@ const BasicPage = ({
             <PortableTextRenderer className="mt-12" content={content} />
           )}
         </motion.div>
-        {research.length > 0 && (
-          <div className="pt-10">
-            <h4 className="mt-20 mb-5 relative flex items-center gap-2">
-              <span className="h-[2px] w-8 bg-blue-500" /> Recent work
-            </h4>
-            <GridLayout variant="default" items={research} />
-          </div>
-        )}
       </Section>
+      {research.length > 0 && (
+        <Section className="bg-gray-100">
+          <h4 className="mb-10 relative flex items-center gap-2">
+            <span className="h-[2px] w-10 bg-blue-500 2xl:absolute right-[calc(100%+1rem)]" />
+            Research
+          </h4>
+          <GridLayout variant="default" items={research} />
+        </Section>
+      )}
       {papers.length > 0 && (
-        <Section className="bg-gray-100" title="Works in Progress">
-          <GridLayout
-            variant="with-image"
-            items={[
-              ...papers.filter((item) => !!item.page),
-              ...papers.filter((item) => !item.page)
-            ]}
-          />
+        <Section className="bg-gray-100 pt-0">
+          <h4 className="mb-10 relative flex items-center gap-2">
+            <span className="h-[2px] w-10 bg-blue-500 2xl:absolute right-[calc(100%+1rem)]" />
+            Works in progress
+          </h4>
+          <GridLayout variant="default" items={papers.slice(0, 3)} />
         </Section>
       )}
     </>

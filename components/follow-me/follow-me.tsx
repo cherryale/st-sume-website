@@ -56,7 +56,6 @@ export const FollowMe = ({
         )}
       >
         {Object.entries(context.social).map(([key, value]) => {
-          console.log(value)
           if (!value) {
             return null
           }

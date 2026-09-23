@@ -94,7 +94,7 @@ const Homepage = ({
       )}
       {papers.length > 0 && (
         <Section className="pt-0" title={wip?.title}>
-          <GridLayout variant="with-image" items={papers} />
+          <GridLayout items={papers} />
         </Section>
       )}
     </>

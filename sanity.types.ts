@@ -708,7 +708,7 @@ export type MenuQueryResult = {
   }> | null
 } | null
 // Variable: homepageQuery
-// Query: *[_type == "homepage"][0] {    ...,    latest {      'title': title,      'description': description,      'items': items[]-> {        ...,        "label": label,        "title": title,        "subtext": subtext,        "type": type,        "file": file.asset->url,        "link": link,        "page": select(          page->_type == "research" => "research",          page->_type == "blogPage" => "blog",          page->slug.current        ),      },    },    wip {      'title': title,      'items': items[]-> {        ...,        "label": label,        "title": title,        "subtext": subtext,        "type": type,        "file": file.asset->url,        "link": link,        "page": select(          page->_type == "research" => "research",          page->_type == "blogPage" => "blog",          page->slug.current        ),      },    },    articles {      'title': title,      'items': items[]-> {        ...,        "title": title,        "excerpt": excerpt,        "image": image,        "date": date,        "slug": slug.current,      },    }  }
+// Query: *[_type == "homepage"][0] {    ...,    latest {      'title': title,      'description': description,      'items': items[]-> {        ...,        "file": file.asset->url,        "page": select(          page->_type == "research" => "research",          page->_type == "blogPage" => "blog",          page->slug.current        ),      },    },    wip {      'title': title,      'items': items[]-> {        ...,        "file": file.asset->url,        "page": select(          page->_type == "research" => "research",          page->_type == "blogPage" => "blog",          page->slug.current        ),      },    },    articles {      'title': title,      'items': items[]-> {        ...,        "title": title,        "excerpt": excerpt,        "image": image,        "date": date,        "slug": slug.current,      },    }  }
 export type HomepageQueryResult = {
   _id: string
   _type: 'homepage'
@@ -826,7 +826,7 @@ export type HomepageQueryResult = {
       label: string
       title: string
       year?: string
-      subtext: string | null
+      subtext?: string
       image?: {
         asset?: {
           _ref: string
@@ -841,7 +841,7 @@ export type HomepageQueryResult = {
         _type: 'image'
       }
       type: 'file' | 'link' | 'progress'
-      link: string | null
+      link?: string
       page: string | null
       file: string | null
     }> | null
@@ -857,7 +857,7 @@ export type HomepageQueryResult = {
       label: string
       title: string
       year?: string
-      subtext: string | null
+      subtext?: string
       image?: {
         asset?: {
           _ref: string
@@ -872,7 +872,7 @@ export type HomepageQueryResult = {
         _type: 'image'
       }
       type: 'file' | 'link' | 'progress'
-      link: string | null
+      link?: string
       page: string | null
       file: string | null
     }> | null
@@ -1437,7 +1437,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     '*[_type == "settings"][0] {\n  ...,\n  info {\n    ...,\n    "resume": resume.asset->url\n  }\n}': SettingsQueryResult
     '*[_type == "menu"][0] {\n  ...,\n  items[] {\n    "_key": _key,\n    "_type": _type,\n    "label": label,\n    "slug": select(\n      reference->_type == "research" => "research",\n      reference->_type == "blogPage" => "blog",\n      reference->slug.current\n    ),\n    "document": reference->_type\n  },\n}': MenuQueryResult
-    '\n  *[_type == "homepage"][0] {\n    ...,\n    latest {\n      \'title\': title,\n      \'description\': description,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    wip {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    articles {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "title": title,\n        "excerpt": excerpt,\n        "image": image,\n        "date": date,\n        "slug": slug.current,\n      },\n    }\n  }\n': HomepageQueryResult
+    '\n  *[_type == "homepage"][0] {\n    ...,\n    latest {\n      \'title\': title,\n      \'description\': description,\n      \'items\': items[]-> {\n        ...,\n        "file": file.asset->url,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    wip {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "file": file.asset->url,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    articles {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "title": title,\n        "excerpt": excerpt,\n        "image": image,\n        "date": date,\n        "slug": slug.current,\n      },\n    }\n  }\n': HomepageQueryResult
     '\n  *[_type == "blog" && slug.current == $slug][0] {\n    ...,\n    "related": *[_type == "blog" && _id != ^._id][0...3] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogPostBySlugQueryResult
     '\n  *[_type == "blogPage"][0] {\n    ...,\n    "items": *[_type == "blog"] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogQueryResult
     '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work" && type != "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    },\n    "wip": *[_type == "work" && type == "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': WorkQueryResult

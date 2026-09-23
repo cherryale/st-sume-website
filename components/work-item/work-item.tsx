@@ -39,13 +39,8 @@ const Small = ({
   year
 }: WorkItemProps) => {
   const href = type === 'file' ? file : link
-  return (
-    <Link
-      href={href || ''}
-      target="_blank"
-      download={type === 'file'}
-      className="block group no-underline"
-    >
+  const content = (
+    <>
       <span className="eyebrow text-blue-500">{label}</span>
       <h3 className="text-lg mt-1 font-heading mb-0 transition-colors underline-offset-3 decoration-1 group-hover:underline">
         {title}
@@ -62,7 +57,19 @@ const Small = ({
         </div>
       )}
       <ReadMore type={type} />
+    </>
+  )
+  return href ? (
+    <Link
+      href={href || ''}
+      target="_blank"
+      download={type === 'file'}
+      className="block group no-underline"
+    >
+      {content}
     </Link>
+  ) : (
+    <div className="h-full p-5">{content}</div>
   )
 }
 
@@ -77,16 +84,13 @@ const Default = ({
   type,
   link,
   file,
+  page,
   year
 }: WorkItemProps) => {
-  const href = type === 'file' ? file : link
-  return (
-    <Link
-      href={href || ''}
-      target="_blank"
-      download={type === 'file'}
-      className="p-10 box-shadow bg-white block group no-underline"
-    >
+  const href = file || link || page
+
+  const content = (
+    <>
       <span
         className={classNames(
           'eyebrow',
@@ -110,7 +114,19 @@ const Default = ({
         </div>
       )}
       {(file || link) && <ReadMore type={type} />}
+    </>
+  )
+  return href ? (
+    <Link
+      href={href || ''}
+      target="_blank"
+      download={type === 'file'}
+      className="p-10 box-shadow bg-white block group no-underline"
+    >
+      {content}
     </Link>
+  ) : (
+    <div className="bg-white h-full p-10">{content}</div>
   )
 }
 

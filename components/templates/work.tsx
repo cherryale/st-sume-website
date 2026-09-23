@@ -34,15 +34,12 @@ const Work = ({
             />
           )}
         </motion.div>
-        {research.length > 0 && (
-          <div className="pt-10">
-            <h4 className="mt-20 mb-5 relative flex items-center gap-2">
-              <span className="h-[2px] w-8 bg-blue-500" /> Recent work
-            </h4>
-            <GridLayout variant="default" items={research} />
-          </div>
-        )}
       </Section>
+      {research.length > 0 && (
+        <Section className="bg-gray-100" title="Recent work">
+          <GridLayout variant="default" items={research} />
+        </Section>
+      )}
       {papers.length > 0 && (
         <Section className="bg-gray-100" title="Works in Progress">
           <GridLayout

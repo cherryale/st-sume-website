@@ -1,4 +1,4 @@
-import { apiVersion, dataset, projectId } from 'lib/api'
+import { apiVersion, dataset, projectId, useCdn } from 'lib/api'
 import { createClient } from 'next-sanity'
 import { defineEnableDraftMode } from 'next-sanity/draft-mode'
 
@@ -12,7 +12,7 @@ const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: process.env.NEXT_PUBLIC_SANITY_DATASET === 'production',
+  useCdn,
   token
 })
 

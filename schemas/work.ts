@@ -51,7 +51,7 @@ export default defineType({
       ]
     }),
     defineField({
-      title: 'Is it a link or a file?',
+      title: 'Is it a link, a page or a file?',
       name: 'type',
       type: 'string',
       initialValue: 'link',
@@ -60,6 +60,7 @@ export default defineType({
         direction: 'horizontal',
         list: [
           { title: 'Link', value: 'link' },
+          { title: 'Page', value: 'page' },
           { title: 'File', value: 'file' },
           { title: 'In progress', value: 'progress' }
         ]
@@ -76,6 +77,22 @@ export default defineType({
           const parent = context.parent as { type?: string }
           if (parent?.type === 'link' && !value) {
             return 'URL is required when type is link.'
+          }
+          return true
+        })
+    }),
+    defineField({
+      title: 'Page',
+      name: 'page',
+      description: 'A page on this website.',
+      type: 'reference',
+      to: [{ type: 'page' }, { type: 'blogPage' }, { type: 'research' }],
+      hidden: ({ parent }) => parent?.type !== 'page',
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const parent = context.parent as { type?: string }
+          if (parent?.type === 'page' && !value) {
+            return 'Page is required when type is page.'
           }
           return true
         })

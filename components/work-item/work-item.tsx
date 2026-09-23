@@ -16,10 +16,13 @@ export const WorkItem = ({
   type,
   link,
   file,
+  page,
   year,
   variant = 'default'
 }: WorkItemProps) => {
-  const href = type === 'file' ? file : link
+  const href =
+    type === 'file' ? file : type === 'page' ? page && `/${page}` : link
+  const isInternal = type === 'page'
   const Content = (
     <>
       <span
@@ -77,7 +80,7 @@ export const WorkItem = ({
   ) : (
     <Link
       href={href || ''}
-      target="_blank"
+      target={isInternal ? undefined : '_blank'}
       download={type === 'file'}
       className={classNames(
         variant === 'small' ? '' : 'p-10 box-shadow bg-white',

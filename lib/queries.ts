@@ -18,9 +18,13 @@ const settingsQuery = defineQuery(`*[_type == "settings"][0] {
   }
 }`)
 export const getSiteSettings = async () => {
-  return await client.fetch<SettingsQueryResult>(settingsQuery, {}, {
-    next: { tags: ['settings'] }
-  })
+  return await client.fetch<SettingsQueryResult>(
+    settingsQuery,
+    {},
+    {
+      next: { tags: ['settings'] }
+    }
+  )
 }
 
 const menuQuery = defineQuery(`*[_type == "menu"][0] {
@@ -38,9 +42,13 @@ const menuQuery = defineQuery(`*[_type == "menu"][0] {
   },
 }`)
 export const getMenu = async () => {
-  return await client.fetch<MenuQueryResult>(menuQuery, {}, {
-    next: { tags: ['menu'] }
-  })
+  return await client.fetch<MenuQueryResult>(
+    menuQuery,
+    {},
+    {
+      next: { tags: ['menu'] }
+    }
+  )
 }
 
 const homepageQuery = defineQuery(`
@@ -57,6 +65,11 @@ const homepageQuery = defineQuery(`
         "type": type,
         "file": file.asset->url,
         "link": link,
+        "page": select(
+          page->_type == "research" => "research",
+          page->_type == "blogPage" => "blog",
+          page->slug.current
+        ),
       },
     },
     wip {
@@ -69,6 +82,11 @@ const homepageQuery = defineQuery(`
         "type": type,
         "file": file.asset->url,
         "link": link,
+        "page": select(
+          page->_type == "research" => "research",
+          page->_type == "blogPage" => "blog",
+          page->slug.current
+        ),
       },
     },
     articles {
@@ -85,9 +103,13 @@ const homepageQuery = defineQuery(`
   }
 `)
 export const getHomepage = async () => {
-  return await client.fetch<HomepageQueryResult>(homepageQuery, {}, {
-    next: { tags: ['homepage', 'work', 'blog'] }
-  })
+  return await client.fetch<HomepageQueryResult>(
+    homepageQuery,
+    {},
+    {
+      next: { tags: ['homepage', 'work', 'blog'] }
+    }
+  )
 }
 
 const blogPostBySlugQuery = defineQuery(`
@@ -109,11 +131,15 @@ export async function getBlogPostBySlug({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  return await client.fetch<BlogPostBySlugQueryResult>(blogPostBySlugQuery, {
-    slug
-  }, {
-    next: { tags: ['blog', `blog:${slug}`] }
-  })
+  return await client.fetch<BlogPostBySlugQueryResult>(
+    blogPostBySlugQuery,
+    {
+      slug
+    },
+    {
+      next: { tags: ['blog', `blog:${slug}`] }
+    }
+  )
 }
 
 const blogQuery = defineQuery(`
@@ -130,9 +156,13 @@ const blogQuery = defineQuery(`
   }
 `)
 export async function getBlog() {
-  return await client.fetch<BlogQueryResult>(blogQuery, {}, {
-    next: { tags: ['blogPage', 'blog'] }
-  })
+  return await client.fetch<BlogQueryResult>(
+    blogQuery,
+    {},
+    {
+      next: { tags: ['blogPage', 'blog'] }
+    }
+  )
 }
 
 const workQuery = defineQuery(`
@@ -146,13 +176,22 @@ const workQuery = defineQuery(`
       "type": type,
       "file": file.asset->url,
       "link": link,
+      "page": select(
+        page->_type == "research" => "research",
+        page->_type == "blogPage" => "blog",
+        page->slug.current
+      ),
     }
   }
 `)
 export async function getWork() {
-  return await client.fetch<WorkQueryResult>(workQuery, {}, {
-    next: { tags: ['research', 'work'] }
-  })
+  return await client.fetch<WorkQueryResult>(
+    workQuery,
+    {},
+    {
+      next: { tags: ['research', 'work'] }
+    }
+  )
 }
 
 const pageBySlugQuery = defineQuery(`
@@ -166,6 +205,11 @@ const pageBySlugQuery = defineQuery(`
       "type": type,
       "file": file.asset->url,
       "link": link,
+      "page": select(
+        page->_type == "research" => "research",
+        page->_type == "blogPage" => "blog",
+        page->slug.current
+      ),
     }
   }
 `)
@@ -175,7 +219,11 @@ export async function getPageBySlug({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  return await client.fetch<PageBySlugQueryResult>(pageBySlugQuery, { slug }, {
-    next: { tags: ['page', `page:${slug}`, 'work'] }
-  })
+  return await client.fetch<PageBySlugQueryResult>(
+    pageBySlugQuery,
+    { slug },
+    {
+      next: { tags: ['page', `page:${slug}`, 'work'] }
+    }
+  )
 }

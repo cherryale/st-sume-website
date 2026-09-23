@@ -6,6 +6,7 @@ import { GridLayout } from '../grid-layout/grid-layout'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
 const BasicPage = ({
+  eyebrow,
   title,
   content,
   work
@@ -20,15 +21,17 @@ const BasicPage = ({
           initial="initial"
           animate="animate"
         >
-          <h1 className="mb-10 uppercase flex items-center justify-center text-center">
-            <span className="text-blue-500">{title.charAt(0)}</span>
-            {title.slice(1)}
-          </h1>
+          {eyebrow && <h1 className="eyebrow mb-5 text-center">{eyebrow}</h1>}
+          {eyebrow ? (
+            <h2>{title}</h2>
+          ) : (
+            <h1 className="mb-10 uppercase flex items-center justify-center text-center">
+              <span className="text-blue-500">{title.charAt(0)}</span>
+              {title.slice(1)}
+            </h1>
+          )}
           {content && (
-            <PortableTextRenderer
-              className="max-w-2xl mx-auto mt-20"
-              content={content}
-            />
+            <PortableTextRenderer className="mt-20" content={content} />
           )}
         </motion.div>
       </Section>

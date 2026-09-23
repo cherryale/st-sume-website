@@ -1210,7 +1210,7 @@ export type BlogQueryResult = {
   }>
 } | null
 // Variable: workQuery
-// Query: *[_type == "research"][0] {    ...,    "items": *[_type == "work" && type != "progress"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    },    "wip": *[_type == "work" && type == "progress"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
+// Query: *[_type == "research"][0] {    ...,    "items": *[_type == "work" && type != "progress"] {      ...,      "file": file.asset->url,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    },    "wip": *[_type == "work" && type == "progress"] {      ...,      "file": file.asset->url,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
 export type WorkQueryResult = {
   _id: string
   _type: 'research'
@@ -1271,7 +1271,7 @@ export type WorkQueryResult = {
     label: string
     title: string
     year?: string
-    subtext: string | null
+    subtext?: string
     image?: {
       asset?: {
         _ref: string
@@ -1286,7 +1286,7 @@ export type WorkQueryResult = {
       _type: 'image'
     }
     type: 'file' | 'link' | 'progress'
-    link: string | null
+    link?: string
     page: string | null
     file: string | null
   }>
@@ -1299,7 +1299,7 @@ export type WorkQueryResult = {
     label: string
     title: string
     year?: string
-    subtext: string | null
+    subtext?: string
     image?: {
       asset?: {
         _ref: string
@@ -1314,13 +1314,13 @@ export type WorkQueryResult = {
       _type: 'image'
     }
     type: 'progress'
-    link: string | null
+    link?: string
     page: string | null
     file: string | null
   }>
 } | null
 // Variable: pageBySlugQuery
-// Query: *[_type == "page" && slug.current == $slug][0] {    ...,    "work": *[_type == "work"] | order(_createdAt desc)[0...6] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
+// Query: *[_type == "page" && slug.current == $slug][0] {    ...,    "items": *[_type == "work" && type != "progress"] {      ...,      "file": file.asset->url,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    },    "wip": *[_type == "work" && type == "progress"] {      ...,      "file": file.asset->url,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
 export type PageBySlugQueryResult = {
   _id: string
   _type: 'page'
@@ -1373,7 +1373,7 @@ export type PageBySlugQueryResult = {
         _key: string
       }
   >
-  work: Array<{
+  items: Array<{
     _id: string
     _type: 'work'
     _createdAt: string
@@ -1382,7 +1382,7 @@ export type PageBySlugQueryResult = {
     label: string
     title: string
     year?: string
-    subtext: string | null
+    subtext?: string
     image?: {
       asset?: {
         _ref: string
@@ -1397,7 +1397,35 @@ export type PageBySlugQueryResult = {
       _type: 'image'
     }
     type: 'file' | 'link' | 'progress'
-    link: string | null
+    link?: string
+    page: string | null
+    file: string | null
+  }>
+  wip: Array<{
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    label: string
+    title: string
+    year?: string
+    subtext?: string
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    type: 'progress'
+    link?: string
     page: string | null
     file: string | null
   }>
@@ -1412,7 +1440,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "homepage"][0] {\n    ...,\n    latest {\n      \'title\': title,\n      \'description\': description,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    wip {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    articles {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "title": title,\n        "excerpt": excerpt,\n        "image": image,\n        "date": date,\n        "slug": slug.current,\n      },\n    }\n  }\n': HomepageQueryResult
     '\n  *[_type == "blog" && slug.current == $slug][0] {\n    ...,\n    "related": *[_type == "blog" && _id != ^._id][0...3] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogPostBySlugQueryResult
     '\n  *[_type == "blogPage"][0] {\n    ...,\n    "items": *[_type == "blog"] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogQueryResult
-    '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work" && type != "progress"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    },\n    "wip": *[_type == "work" && type == "progress"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': WorkQueryResult
-    '\n  *[_type == "page" && slug.current == $slug][0] {\n    ...,\n    "work": *[_type == "work"] | order(_createdAt desc)[0...6] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': PageBySlugQueryResult
+    '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work" && type != "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    },\n    "wip": *[_type == "work" && type == "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': WorkQueryResult
+    '\n  *[_type == "page" && slug.current == $slug][0] {\n    ...,\n    "items": *[_type == "work" && type != "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    },\n    "wip": *[_type == "work" && type == "progress"] {\n      ...,\n      "file": file.asset->url,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': PageBySlugQueryResult
   }
 }

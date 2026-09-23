@@ -43,9 +43,6 @@ const Work = ({
           </div>
         )}
       </Section>
-      {/* {research.length > 0 && (
-        <Section className="bg-gray-100" title="Research"></Section>
-      )} */}
       {papers.length > 0 && (
         <Section className="bg-gray-100" title="Works in Progress">
           <GridLayout

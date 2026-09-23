@@ -170,12 +170,7 @@ const workQuery = defineQuery(`
     ...,
     "items": *[_type == "work" && type != "progress"] {
       ...,
-      "label": label,
-      "title": title,
-      "subtext": subtext,
-      "type": type,
       "file": file.asset->url,
-      "link": link,
       "page": select(
         page->_type == "research" => "research",
         page->_type == "blogPage" => "blog",
@@ -184,12 +179,7 @@ const workQuery = defineQuery(`
     },
     "wip": *[_type == "work" && type == "progress"] {
       ...,
-      "label": label,
-      "title": title,
-      "subtext": subtext,
-      "type": type,
       "file": file.asset->url,
-      "link": link,
       "page": select(
         page->_type == "research" => "research",
         page->_type == "blogPage" => "blog",
@@ -211,14 +201,18 @@ export async function getWork() {
 const pageBySlugQuery = defineQuery(`
   *[_type == "page" && slug.current == $slug][0] {
     ...,
-    "work": *[_type == "work"] | order(_createdAt desc)[0...6] {
+    "items": *[_type == "work" && type != "progress"] {
       ...,
-      "label": label,
-      "title": title,
-      "subtext": subtext,
-      "type": type,
       "file": file.asset->url,
-      "link": link,
+      "page": select(
+        page->_type == "research" => "research",
+        page->_type == "blogPage" => "blog",
+        page->slug.current
+      ),
+    },
+    "wip": *[_type == "work" && type == "progress"] {
+      ...,
+      "file": file.asset->url,
       "page": select(
         page->_type == "research" => "research",
         page->_type == "blogPage" => "blog",

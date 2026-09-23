@@ -82,7 +82,7 @@ export const MobileMenu = ({
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex flex-col items-center gap-5 list-none eyebrow !text-base"
+              className="flex flex-col items-center gap-5 list-none eyebrow !text-base text-gray-500"
             >
               {items.map((item) => {
                 const href = resolveInternalLink(item)

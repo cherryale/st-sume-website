@@ -168,7 +168,21 @@ export async function getBlog() {
 const workQuery = defineQuery(`
   *[_type == "research"][0] {
     ...,
-    "items": *[_type == "work"] {
+    "items": *[_type == "work" && type != "progress"] {
+      ...,
+      "label": label,
+      "title": title,
+      "subtext": subtext,
+      "type": type,
+      "file": file.asset->url,
+      "link": link,
+      "page": select(
+        page->_type == "research" => "research",
+        page->_type == "blogPage" => "blog",
+        page->slug.current
+      ),
+    },
+    "wip": *[_type == "work" && type == "progress"] {
       ...,
       "label": label,
       "title": title,

@@ -1,5 +1,6 @@
 import { PublishIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
+import { portableImage } from '../fields/portable-image'
 
 /**
  * This file is the schema definition for a post.
@@ -28,7 +29,7 @@ export default defineType({
     defineField({
       name: 'description',
       type: 'array',
-      of: [{ type: 'block' }]
+      of: [{ type: 'block' }, portableImage]
     }),
     defineField({
       title: 'Blog posts',

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { BlogPostBySlugQueryResult } from '../../sanity.types'
 import { Section } from '../section/section'
 import { urlForImage } from '../../lib/resolvers'
-import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
+import { PortableTextRenderer } from '../portable-text-renderer/portable-text-render'
 import { GridLayout } from '../grid-layout/grid-layout'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
@@ -27,14 +27,14 @@ const BlogPost = ({
   const articles = related || []
   return (
     <motion.div variants={revealVariant} initial="initial" animate="animate">
-      <Section>
+      <Section className="mt-20">
         <div className="max-w-2xl text-center mx-auto">
-          <span className="block eyebrow text-gray-500">{publishedAt}</span>
+          <span className="block eyebrow text-gray-700">{publishedAt}</span>
           <h1 className="text-6xl mt-2 font-heading">{title}</h1>
           {excerpt && <p className="text-lg mt-10">{excerpt}</p>}
         </div>
         {image && (
-          <figure className="flex flex-col items-center w-full mt-20">
+          <figure className="flex flex-col items-center w-full mt-12">
             <Image
               alt={image?.alt || ''}
               width={1280}
@@ -49,7 +49,7 @@ const BlogPost = ({
           </figure>
         )}
         {content && (
-          <div className="max-w-2xl mx-auto mt-20">
+          <div className="max-w-2xl mx-auto mt-12">
             <PortableTextRenderer content={content} />
             <Author />
           </div>

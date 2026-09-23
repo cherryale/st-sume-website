@@ -1,14 +1,14 @@
 'use client'
 import { BlogQueryResult } from '../../sanity.types'
 import { Section } from '../section/section'
-import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
+import { PortableTextRenderer } from '../portable-text-renderer/portable-text-render'
 import { GridLayout } from '../grid-layout/grid-layout'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
 
 const Blog = ({ title, description, items }: NonNullable<BlogQueryResult>) => {
   return (
-    <Section>
+    <Section className="mt-20">
       <motion.div
         variants={revealVariant}
         initial="initial"

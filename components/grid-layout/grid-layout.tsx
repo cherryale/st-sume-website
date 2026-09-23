@@ -7,22 +7,18 @@ import { WorkItem } from '../work-item/work-item'
 
 interface GridLayoutProps {
   items: (BlogEntry | WorkEntry)[]
+  variant?: 'small' | 'default' | 'with-image'
 }
-export const GridLayout = ({ items }: GridLayoutProps) => {
+export const GridLayout = ({ items, variant }: GridLayoutProps) => {
   return (
-    <motion.div
-      variants={revealVariant}
-      initial="initial"
-      animate="animate"
-      className="grid md:grid-cols-2 lg:grid-cols-3 gap-10"
-    >
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
       {items.map((item) => {
         return item._type === 'work' ? (
-          <WorkItem key={item._id} {...item} />
+          <WorkItem key={item._id} {...item} variant={variant} />
         ) : (
           <BlogItem {...item} key={item._id} date={item?.date} />
         )
       })}
-    </motion.div>
+    </div>
   )
 }

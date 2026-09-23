@@ -60,7 +60,6 @@ export default defineType({
         direction: 'horizontal',
         list: [
           { title: 'Link', value: 'link' },
-          { title: 'Page', value: 'page' },
           { title: 'File', value: 'file' },
           { title: 'In progress', value: 'progress' }
         ]
@@ -84,18 +83,10 @@ export default defineType({
     defineField({
       title: 'Page',
       name: 'page',
-      description: 'A page on this website.',
+      description: 'Reference this ',
       type: 'reference',
-      to: [{ type: 'page' }, { type: 'blogPage' }, { type: 'research' }],
-      hidden: ({ parent }) => parent?.type !== 'page',
-      validation: (rule) =>
-        rule.custom((value, context) => {
-          const parent = context.parent as { type?: string }
-          if (parent?.type === 'page' && !value) {
-            return 'Page is required when type is page.'
-          }
-          return true
-        })
+      to: [{ type: 'page' }],
+      hidden: ({ parent }) => parent?.type !== 'progress'
     }),
     defineField({
       name: 'file',

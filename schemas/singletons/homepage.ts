@@ -1,5 +1,6 @@
 import { HomeIcon } from '@sanity/icons'
 import { defineField, defineType } from 'sanity'
+import { portableImage } from '../fields/portable-image'
 
 /**
  * This file is the schema definition for a post.
@@ -41,7 +42,7 @@ export default defineType({
       name: 'content',
       title: 'Content',
       type: 'array',
-      of: [{ type: 'block' }]
+      of: [{ type: 'block' }, portableImage]
     }),
     defineField({
       title: 'Latest work',
@@ -57,7 +58,7 @@ export default defineType({
         defineField({
           name: 'description',
           type: 'array',
-          of: [{ type: 'block' }]
+          of: [{ type: 'block' }, portableImage]
         }),
         defineField({
           title: 'Work',

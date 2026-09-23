@@ -1,7 +1,7 @@
 'use client'
 import { PageBySlugQueryResult } from '../../sanity.types'
 import { Section } from '../section/section'
-import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
+import { PortableTextRenderer } from '../portable-text-renderer/portable-text-render'
 import { GridLayout } from '../grid-layout/grid-layout'
 import { motion } from 'framer-motion'
 import { revealVariant } from '../../lib/animation'
@@ -14,7 +14,7 @@ const BasicPage = ({
   const latest = work || []
   return (
     <>
-      <Section>
+      <Section className="mt-20">
         <motion.div
           className="max-w-2xl mx-auto"
           variants={revealVariant}
@@ -25,13 +25,13 @@ const BasicPage = ({
           {eyebrow ? (
             <h2>{title}</h2>
           ) : (
-            <h1 className="mb-10 uppercase flex items-center justify-center text-center">
+            <h1 className="uppercase flex items-center justify-center text-center">
               <span className="text-blue-500">{title.charAt(0)}</span>
               {title.slice(1)}
             </h1>
           )}
           {content && (
-            <PortableTextRenderer className="mt-20" content={content} />
+            <PortableTextRenderer className="mt-12" content={content} />
           )}
         </motion.div>
       </Section>

@@ -45,6 +45,112 @@ export type Menu = {
   }>
 }
 
+export type BlogPage = {
+  _id: string
+  _type: 'blogPage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  text?: string
+}
+
+export type Research = {
+  _id: string
+  _type: 'research'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
+  text?: string
+}
+
 export type Homepage = {
   _id: string
   _type: 'homepage'
@@ -65,44 +171,94 @@ export type Homepage = {
   }
   title: string
   subtext: string
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
   latest?: {
     title: string
-    description?: Array<{
-      children?: Array<{
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }>
-      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-      listItem?: 'bullet' | 'number'
-      markDefs?: Array<{
-        href?: string
-        _type: 'link'
-        _key: string
-      }>
-      level?: number
-      _type: 'block'
-      _key: string
-    }>
+    description?: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?:
+            | 'normal'
+            | 'h1'
+            | 'h2'
+            | 'h3'
+            | 'h4'
+            | 'h5'
+            | 'h6'
+            | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          caption?: string
+          alt?: string
+          _type: 'image'
+          _key: string
+        }
+    >
     items?: Array<{
       _ref: string
       _type: 'reference'
@@ -299,27 +455,14 @@ export type Work = {
     alt?: string
     _type: 'image'
   }
-  type: 'link' | 'page' | 'file' | 'progress'
+  type: 'link' | 'file' | 'progress'
   link?: string
-  page?:
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'blogPage'
-      }
-    | {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'research'
-      }
+  page?: {
+    _ref: string
+    _type: 'reference'
+    _weak?: boolean
+    [internalGroqTypeReferenceTo]?: 'page'
+  }
   file?: {
     asset?: {
       _ref: string
@@ -332,62 +475,6 @@ export type Work = {
   }
 }
 
-export type Research = {
-  _id: string
-  _type: 'research'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  text?: string
-}
-
-export type BlogPage = {
-  _id: string
-  _type: 'blogPage'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  text?: string
-}
-
 export type Page = {
   _id: string
   _type: 'page'
@@ -397,24 +484,49 @@ export type Page = {
   eyebrow: string
   title: string
   slug: Slug
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'normal'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
 }
 
 export type SanityImagePaletteSwatch = {
@@ -515,6 +627,8 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | Menu
+  | BlogPage
+  | Research
   | Homepage
   | SanityImageCrop
   | SanityImageHotspot
@@ -522,8 +636,6 @@ export type AllSanitySchemaTypes =
   | Blog
   | Slug
   | Work
-  | Research
-  | BlogPage
   | Page
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -617,44 +729,94 @@ export type HomepageQueryResult = {
   }
   title: string
   subtext: string
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
   latest: {
     title: string
-    description: Array<{
-      children?: Array<{
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }>
-      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-      listItem?: 'bullet' | 'number'
-      markDefs?: Array<{
-        href?: string
-        _type: 'link'
-        _key: string
-      }>
-      level?: number
-      _type: 'block'
-      _key: string
-    }> | null
+    description: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?:
+            | 'blockquote'
+            | 'h1'
+            | 'h2'
+            | 'h3'
+            | 'h4'
+            | 'h5'
+            | 'h6'
+            | 'normal'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }
+      | {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          caption?: string
+          alt?: string
+          _type: 'image'
+          _key: string
+        }
+    > | null
     items: Array<{
       _id: string
       _type: 'work'
@@ -678,9 +840,9 @@ export type HomepageQueryResult = {
         alt?: string
         _type: 'image'
       }
-      type: 'file' | 'link' | 'page' | 'progress'
+      type: 'file' | 'link' | 'progress'
       link: string | null
-      page: string | 'blog' | 'research' | null
+      page: string | null
       file: string | null
     }> | null
   } | null
@@ -709,9 +871,9 @@ export type HomepageQueryResult = {
         alt?: string
         _type: 'image'
       }
-      type: 'file' | 'link' | 'page' | 'progress'
+      type: 'file' | 'link' | 'progress'
       link: string | null
-      page: string | 'blog' | 'research' | null
+      page: string | null
       file: string | null
     }> | null
   } | null
@@ -934,24 +1096,49 @@ export type BlogQueryResult = {
   _updatedAt: string
   _rev: string
   title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
   text?: string
   items: Array<{
     _id: string
@@ -1023,7 +1210,7 @@ export type BlogQueryResult = {
   }>
 } | null
 // Variable: workQuery
-// Query: *[_type == "research"][0] {    ...,    "items": *[_type == "work"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
+// Query: *[_type == "research"][0] {    ...,    "items": *[_type == "work" && type != "progress"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    },    "wip": *[_type == "work" && type == "progress"] {      ...,      "label": label,      "title": title,      "subtext": subtext,      "type": type,      "file": file.asset->url,      "link": link,      "page": select(        page->_type == "research" => "research",        page->_type == "blogPage" => "blog",        page->slug.current      ),    }  }
 export type WorkQueryResult = {
   _id: string
   _type: 'research'
@@ -1031,24 +1218,49 @@ export type WorkQueryResult = {
   _updatedAt: string
   _rev: string
   title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
   text?: string
   items: Array<{
     _id: string
@@ -1073,9 +1285,37 @@ export type WorkQueryResult = {
       alt?: string
       _type: 'image'
     }
-    type: 'file' | 'link' | 'page' | 'progress'
+    type: 'file' | 'link' | 'progress'
     link: string | null
-    page: string | 'blog' | 'research' | null
+    page: string | null
+    file: string | null
+  }>
+  wip: Array<{
+    _id: string
+    _type: 'work'
+    _createdAt: string
+    _updatedAt: string
+    _rev: string
+    label: string
+    title: string
+    year?: string
+    subtext: string | null
+    image?: {
+      asset?: {
+        _ref: string
+        _type: 'reference'
+        _weak?: boolean
+        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+      }
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      _type: 'image'
+    }
+    type: 'progress'
+    link: string | null
+    page: string | null
     file: string | null
   }>
 } | null
@@ -1090,24 +1330,49 @@ export type PageBySlugQueryResult = {
   eyebrow: string
   title: string
   slug: Slug
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs?: Array<{
-      href?: string
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?:
+          | 'blockquote'
+          | 'h1'
+          | 'h2'
+          | 'h3'
+          | 'h4'
+          | 'h5'
+          | 'h6'
+          | 'normal'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }
+    | {
+        asset?: {
+          _ref: string
+          _type: 'reference'
+          _weak?: boolean
+          [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+        }
+        media?: unknown
+        hotspot?: SanityImageHotspot
+        crop?: SanityImageCrop
+        caption?: string
+        alt?: string
+        _type: 'image'
+        _key: string
+      }
+  >
   work: Array<{
     _id: string
     _type: 'work'
@@ -1131,9 +1396,9 @@ export type PageBySlugQueryResult = {
       alt?: string
       _type: 'image'
     }
-    type: 'file' | 'link' | 'page' | 'progress'
+    type: 'file' | 'link' | 'progress'
     link: string | null
-    page: string | 'blog' | 'research' | null
+    page: string | null
     file: string | null
   }>
 } | null
@@ -1147,7 +1412,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "homepage"][0] {\n    ...,\n    latest {\n      \'title\': title,\n      \'description\': description,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    wip {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "label": label,\n        "title": title,\n        "subtext": subtext,\n        "type": type,\n        "file": file.asset->url,\n        "link": link,\n        "page": select(\n          page->_type == "research" => "research",\n          page->_type == "blogPage" => "blog",\n          page->slug.current\n        ),\n      },\n    },\n    articles {\n      \'title\': title,\n      \'items\': items[]-> {\n        ...,\n        "title": title,\n        "excerpt": excerpt,\n        "image": image,\n        "date": date,\n        "slug": slug.current,\n      },\n    }\n  }\n': HomepageQueryResult
     '\n  *[_type == "blog" && slug.current == $slug][0] {\n    ...,\n    "related": *[_type == "blog" && _id != ^._id][0...3] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogPostBySlugQueryResult
     '\n  *[_type == "blogPage"][0] {\n    ...,\n    "items": *[_type == "blog"] {\n      ...,\n      "title": title,\n      "excerpt": excerpt,\n      "image": image,\n      "date": date,\n      "slug": slug.current,\n    }\n  }\n': BlogQueryResult
-    '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': WorkQueryResult
+    '\n  *[_type == "research"][0] {\n    ...,\n    "items": *[_type == "work" && type != "progress"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    },\n    "wip": *[_type == "work" && type == "progress"] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': WorkQueryResult
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    ...,\n    "work": *[_type == "work"] | order(_createdAt desc)[0...6] {\n      ...,\n      "label": label,\n      "title": title,\n      "subtext": subtext,\n      "type": type,\n      "file": file.asset->url,\n      "link": link,\n      "page": select(\n        page->_type == "research" => "research",\n        page->_type == "blogPage" => "blog",\n        page->slug.current\n      ),\n    }\n  }\n': PageBySlugQueryResult
   }
 }

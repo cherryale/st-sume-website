@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { HomepageQueryResult } from '../../sanity.types'
 import { urlForImage } from '../../lib/resolvers'
-import { PortableTextRenderer } from '../portable-text-renderer/portable-text-rendered'
+import { PortableTextRenderer } from '../portable-text-renderer/portable-text-render'
 import classNames from 'classnames'
 import { useContext } from 'react'
 import AppContext from '../../contexts/AppContext'
@@ -89,12 +89,12 @@ const Homepage = ({
       </div>
       {work.length > 0 && (
         <Section title={latest?.title} description={latest?.description}>
-          <GridLayout items={work} />
+          <GridLayout variant="default" items={work} />
         </Section>
       )}
       {papers.length > 0 && (
         <Section className="pt-0" title={wip?.title}>
-          <GridLayout items={papers} />
+          <GridLayout variant="with-image" items={papers} />
         </Section>
       )}
     </>

@@ -1,6 +1,7 @@
 import { BlockquoteIcon } from '@sanity/icons'
 import { format, parseISO } from 'date-fns'
 import { defineField, defineType } from 'sanity'
+import { portableImage } from './fields/portable-image'
 
 /**
  * This file is the schema definition for a post.
@@ -74,29 +75,7 @@ export default defineType({
       name: 'content',
       title: 'Content',
       type: 'array',
-      of: [
-        { type: 'block' },
-        {
-          type: 'image',
-          options: {
-            hotspot: true
-          },
-          fields: [
-            {
-              name: 'caption',
-              type: 'string',
-              title: 'Image caption',
-              description: 'Caption displayed below the image.'
-            },
-            {
-              name: 'alt',
-              type: 'string',
-              title: 'Alternative text',
-              description: 'Important for SEO and accessiblity.'
-            }
-          ]
-        }
-      ]
+      of: [{ type: 'block' }, portableImage]
     })
   ],
   preview: {

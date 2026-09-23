@@ -28,7 +28,7 @@ const PageNotFound = () => {
           The page you were looking for either does not exist or has been
           delete. Apologies for the inconvenience.
         </p>
-        <Link href="/" className={classNames('button-outline mt-10 group')}>
+        <Link href="/" className={classNames('button-outline mt-12 group')}>
           Back to Homepage
         </Link>
       </motion.div>
